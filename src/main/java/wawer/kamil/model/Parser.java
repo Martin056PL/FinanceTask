@@ -9,22 +9,26 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Parser {
-    public static void main(String[] args) throws IOException {
-        ObjectMapper objectMapper = new XmlMapper();
 
-        // Reads from XML and converts to POJO
+     private ObjectMapper objectMapper;
 
-        AccountList account = objectMapper.readValue(
+    public Parser() {
+        this.objectMapper = new XmlMapper();
+    }
+
+    public AccountList readFromXML() throws IOException {
+        return objectMapper.readValue(
                 StringUtils.toEncodedString(Files.readAllBytes
-                        (Paths.get("src/main/resources/SourceData.xml"))
-                        ,StandardCharsets.UTF_8), AccountList.class);
+                                (Paths.get("src/main/resources/SourceData.xml"))
+                        , StandardCharsets.UTF_8), AccountList.class);
+    }
 
-        System.out.println(account);
-
-         //Reads from POJO and converts to XML
-
-        objectMapper.writeValue(new File("src/main/resources/SortedData.xml"),account);
+    public void writeToXML(List<Account> account) throws IOException {
+        objectMapper.writeValue(new
+                File("src/main/resources/SortedData.xml"), account);
     }
 }

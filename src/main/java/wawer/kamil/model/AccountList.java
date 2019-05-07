@@ -3,29 +3,27 @@ package wawer.kamil.model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @JacksonXmlRootElement(localName = "accounts")
 public final class AccountList {
 
-    @JacksonXmlElementWrapper(localName = "account", useWrapping = false)
-
-    private Account[] account;
+    @JacksonXmlElementWrapper(localName = "accountList", useWrapping = false)
     private List<Account> accountList;
 
     public AccountList() {
     }
 
-    public AccountList(List<Account> employee) {
-        this.accountList = employee;
+    public AccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
-    public List<Account> getAccount() {
+    public List<Account> getAccountList() {
         return accountList;
     }
 
-    public void setAccount(List<Account> account) {
+    public void setAccountList(LinkedList<Account> account) {
         this.accountList = account;
     }
 

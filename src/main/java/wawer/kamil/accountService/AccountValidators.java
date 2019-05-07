@@ -11,8 +11,8 @@ public class AccountValidators {
     public boolean checkAllValidators(Account account) {
         boolean currency = isCurrencyEqualsPLN(account.getCurrency());
         boolean balance = isBalanceLowerThanZero(account.getBalance());
-        LocalDate datest = LocalDate.parse(account.getClosingDate());
-        boolean date = isCloseDateIsBeforePresentDate(datest);
+        LocalDate dateCreatedByString = LocalDate.parse(account.getClosingDate());
+        boolean date = isCloseDateIsBeforePresentDate(dateCreatedByString);
         boolean format = isIbanHasCorrectFormat(account.getAccountIban());
         return currency && balance && date && format;
     }
