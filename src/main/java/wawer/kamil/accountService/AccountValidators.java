@@ -1,4 +1,4 @@
-package wawer.kamil.AccountService;
+package wawer.kamil.accountService;
 
 import org.apache.commons.lang3.StringUtils;
 import wawer.kamil.model.Account;
@@ -11,7 +11,8 @@ public class AccountValidators {
     public boolean checkAllValidators(Account account) {
         boolean currency = isCurrencyEqualsPLN(account.getCurrency());
         boolean balance = isBalanceLowerThanZero(account.getBalance());
-        boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
+        LocalDate datest = LocalDate.parse(account.getClosingDate());
+        boolean date = isCloseDateIsBeforePresentDate(datest);
         boolean format = isIbanHasCorrectFormat(account.getAccountIban());
         return currency && balance && date && format;
     }

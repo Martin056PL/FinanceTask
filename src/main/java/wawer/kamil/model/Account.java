@@ -1,22 +1,27 @@
 package wawer.kamil.model;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public final class Account {
-
+    @JacksonXmlProperty(localName = "iban", isAttribute = true)
     private String accountIban;
+    @JacksonXmlProperty(localName = "name")
     private String name;
+    @JacksonXmlProperty(localName = "currency")
     private String currency;
+    @JacksonXmlProperty(localName = "balance")
     private BigDecimal balance;
-    private LocalDate closingDate;
+    @JacksonXmlProperty(localName = "closingDate")
+    private String closingDate;
 
-    public Account(String accountIban, String name, String currency, BigDecimal balance, LocalDate closingDate) {
-        if (accountIban == null || name == null || currency == null || balance == null || closingDate == null)
-            throw new IllegalArgumentException("Pola nie mogą być nullami");
-        if (accountIban.isEmpty() || name.isEmpty() || currency.isEmpty())
-            throw new IllegalArgumentException("Pola nie mogą byc puste");
+    public Account() {
+    }
+
+    public Account(String accountIban, String name, String currency, BigDecimal balance, String closingDate) {
         this.accountIban = accountIban;
         this.name = name;
         this.currency = currency;
@@ -56,11 +61,11 @@ public final class Account {
         this.balance = balance;
     }
 
-    public LocalDate getClosingDate() {
+    public String getClosingDate() {
         return closingDate;
     }
 
-    public void setClosingDate(LocalDate closingDate) {
+    public void setClosingDate(String closingDate) {
         this.closingDate = closingDate;
     }
 

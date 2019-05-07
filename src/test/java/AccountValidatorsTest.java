@@ -1,4 +1,5 @@
-import wawer.kamil.AccountService.AccountValidators;
+/*
+import wawer.kamil.accountService.AccountValidators;
 import wawer.kamil.model.Account;
 
 import java.math.BigDecimal;
@@ -15,3 +16,4 @@ public class AccountValidatorsTest {
     }
 
 }
+*/
