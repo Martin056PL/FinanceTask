@@ -23,20 +23,20 @@ public class AccountValidators {
         } else throw new NullPointerException();
     }
 
-    public boolean isBalanceLowerThanZero(BigDecimal balance) {
+    private boolean isBalanceLowerThanZero(BigDecimal balance) {
         BigDecimal border = BigDecimal.ZERO;
         int result = balance.compareTo(border);
         return result != -1;
     }
 
-    public boolean isCloseDateIsBeforePresentDate(LocalDate closingDate) {
+    private boolean isCloseDateIsBeforePresentDate(LocalDate closingDate) {
         LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
         boolean isBefore = closingDate.isBefore(presentDate);
         if (isBefore) return false;
         else return true;
     }
 
-    public boolean isIbanHasCorrectFormat(String iban) throws NullPointerException {
+    private boolean isIbanHasCorrectFormat(String iban) throws NullPointerException {
         String constantIban = StringUtils.deleteWhitespace(iban);//TODO Czy zakładamy że spacje w podanym numerze sa nieakceptowalne? czy też dopuszczalne? Założenie: tylko ciągły numer rachunku bez spacji.
         if (constantIban != null) {
             int length = constantIban.length();
