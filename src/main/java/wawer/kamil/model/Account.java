@@ -13,6 +13,10 @@ public final class Account {
     private LocalDate closingDate;
 
     public Account(String accountIban, String name, String currency, BigDecimal balance, LocalDate closingDate) {
+        if (accountIban == null || name == null || currency == null || balance == null || closingDate == null)
+            throw new IllegalArgumentException("Pola nie mogą być nullami");
+        if (accountIban.isEmpty() || name.isEmpty() || currency.isEmpty())
+            throw new IllegalArgumentException("Pola nie mogą byc puste");
         this.accountIban = accountIban;
         this.name = name;
         this.currency = currency;
