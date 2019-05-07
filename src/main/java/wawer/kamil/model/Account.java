@@ -11,6 +11,14 @@ public class Account {
     private BigDecimal balance;
     private LocalDate closingDate;
 
+    public Account(String accountIban, String name, String currency, BigDecimal balance, LocalDate closingDate) {
+        this.accountIban = accountIban;
+        this.name = name;
+        this.currency = currency;
+        this.balance = balance;
+        this.closingDate = closingDate;
+    }
+
     public String getaccountIban() {
         return accountIban;
     }
