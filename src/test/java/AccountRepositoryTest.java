@@ -1,3 +1,4 @@
+/*
 import org.junit.Assert;
 import org.junit.Test;
 import wawer.kamil.model.AccountRepository;
@@ -16,3 +17,4 @@ public class AccountRepositoryTest {
         Assert.assertEquals(accountSizeRepository,7);
     }
 }
+*/
