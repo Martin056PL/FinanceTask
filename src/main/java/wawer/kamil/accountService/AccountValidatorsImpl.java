@@ -21,7 +21,7 @@ public class AccountValidatorsImpl implements AccountValidators {
         //TODO czy mam uwzględniać wilkość liter? Założenie, że ma być wielkimi literami
         if (currency != null) {
             return currency.equals("PLN");
-        } else throw new NullPointerException();
+        } else throw new IllegalArgumentException();
     }
 
     public boolean isBalanceLowerThanZero(BigDecimal balance) {
@@ -38,12 +38,12 @@ public class AccountValidatorsImpl implements AccountValidators {
     }
 
     public boolean isIbanHasCorrectFormat(String iban) throws NullPointerException {
-        String constantIban = StringUtils.deleteWhitespace(iban);//TODO Czy zakładamy że spacje w podanym numerze sa nieakceptowalne? czy też dopuszczalne? Założenie: tylko ciągły numer rachunku bez spacji.
-        if (constantIban != null) {
-            int length = constantIban.length();
+        //TODO Czy zakładamy że spacje w podanym numerze sa nieakceptowalne? czy też dopuszczalne? Założenie: tylko ciągły numer rachunku bez spacji.
+        if (iban != null) {
+            int length = iban.length();
             if (length == 28) {
-                String begining = constantIban.substring(0, 2);
-                String rest = constantIban.substring(2);
+                String begining = iban.substring(0, 2);
+                String rest = iban.substring(2);
                 boolean isIbanContainsPolishPrefix = begining.equals("PL");
                 boolean isIbanContainsOnlyNumbersAfterPrefix = StringUtils.isNumeric(rest);
 

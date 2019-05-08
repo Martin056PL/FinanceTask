@@ -1,7 +1,6 @@
 package wawer.kamil.accountService;
 
 import wawer.kamil.model.Account;
-import wawer.kamil.model.AccountList;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -10,13 +9,9 @@ import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
 
-    //TODO Zrobic metode na porównywanie list i porzadkowanie ich;
-
-    private AccountList list;
     private AccountValidatorsImpl validators;
 
     public AccountServiceImpl() {
-        this.list = new AccountList();
         this.validators = new AccountValidatorsImpl();
     }
 
@@ -29,16 +24,12 @@ public class AccountServiceImpl implements AccountService {
             if (validators.checkAllValidators(account)) {
                 validatedList.add(account);
                 continue;
-
-            }
-            hasNext = iterator.hasNext();
-
+            } hasNext = iterator.hasNext();
         }return validatedList;
     }
 
     public List<Account> sortValidatedAccountList(List<Account> validatedAccountList){
-        List<Account> sortededList = new LinkedList<>();
-        sortededList.addAll(validatedAccountList);
+        List<Account> sortedList = new LinkedList<>(validatedAccountList);
 
         Comparator<Account> comparator = new Comparator<Account>() {
             @Override
@@ -47,13 +38,8 @@ public class AccountServiceImpl implements AccountService {
             }
         };
 
-        sortededList.sort(comparator);
-        return sortededList;
-    }
-
-    private List<Account> getAccountList() {
-        List<Account> repository = list.getAccountList();
-        return repository;
+        sortedList.sort(comparator);
+        return sortedList;
     }
 
 }
