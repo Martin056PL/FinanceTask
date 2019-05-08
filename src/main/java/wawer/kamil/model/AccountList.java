@@ -3,7 +3,6 @@ package wawer.kamil.model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @JacksonXmlRootElement(localName = "accounts")
@@ -23,7 +22,7 @@ public final class AccountList {
         return accountList;
     }
 
-    public void setAccountList(LinkedList<Account> account) {
+    public void setAccountList(List<Account> account) {
         this.accountList = account;
     }
 

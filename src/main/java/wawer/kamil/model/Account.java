@@ -2,11 +2,14 @@ package wawer.kamil.model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public final class Account {
+public final class Account implements Serializable {
+
+    private static final long serialVersionUID = -4816735989159211337L;
     @JacksonXmlProperty(localName = "iban", isAttribute = true)
     private String accountIban;
     @JacksonXmlProperty(localName = "name")
