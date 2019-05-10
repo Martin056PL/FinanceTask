@@ -24,22 +24,26 @@ public class AccountValidatorsImpl implements AccountValidators {
         if (currency != null) {
             String upperCaseCurrency = currency.toUpperCase();
             return upperCaseCurrency.equals("PLN");
-        } else throw new IllegalArgumentException();
+        } else return false;
     }
 
     @Override
     public boolean isBalanceLowerThanZero(BigDecimal balance) {
-        BigDecimal border = BigDecimal.ZERO;
-        int result = balance.compareTo(border);
-        return result != -1;
+        if(balance!=null) {
+            BigDecimal border = BigDecimal.ZERO;
+            int result = balance.compareTo(border);
+            return result != -1;
+        }else return false;
     }
 
     @Override
     public boolean isCloseDateIsBeforePresentDate(LocalDate closingDate) {
-        LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
-        boolean isBefore = closingDate.isBefore(presentDate);
-        if (isBefore) return false;
-        else return true;
+        if(closingDate != null) {
+            LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
+            boolean isBefore = closingDate.isBefore(presentDate);
+            if (isBefore) return false;
+            else return true;
+        }else return false;
     }
 
     @Override
@@ -55,6 +59,6 @@ public class AccountValidatorsImpl implements AccountValidators {
 
                 return isIbanContainsPolishPrefix && isIbanContainsOnlyNumbersAfterPrefix;
             } else return false;
-        } else throw new NullPointerException();
+        } else return false;
     }
 }

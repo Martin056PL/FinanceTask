@@ -3,7 +3,6 @@ package wawer.kamil.accountService;
 import wawer.kamil.model.Account;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,12 +28,7 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> sortValidatedAccountList(List<Account> validatedAccountList){
         List<Account> sortedList = new LinkedList<>(validatedAccountList);
 
-        Comparator<Account> comparator = new Comparator<Account>() {
-            @Override
-            public int compare(Account o1, Account o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        };
+        Comparator<Account> comparator = (o1, o2) -> o1.getName().compareTo(o2.getName());
 
         sortedList.sort(comparator);
         return sortedList;
