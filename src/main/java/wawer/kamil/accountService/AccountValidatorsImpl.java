@@ -15,6 +15,7 @@ public class AccountValidatorsImpl implements AccountValidators {
         LocalDate dateCreatedByString = LocalDate.parse(account.getClosingDate());
         boolean date = isCloseDateIsBeforePresentDate(dateCreatedByString);
         boolean format = isIbanHasCorrectFormat(account.getAccountIban());
+
         return currency && balance && date && format;
     }
 
@@ -45,7 +46,7 @@ public class AccountValidatorsImpl implements AccountValidators {
     }
 
     @Override
-    public boolean isIbanHasCorrectFormat(String iban) throws NullPointerException {
+    public boolean isIbanHasCorrectFormat(String iban){
         //TODO Czy zakładamy że spacje w podanym numerze sa nieakceptowalne? czy też dopuszczalne? Założenie: tylko ciągły numer rachunku bez spacji.
         if (iban != null) {
             int length = iban.length();
