@@ -29,19 +29,19 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isBalanceLowerThanZero(BigDecimal balance) {
-        if(balance!=null) {
-            BigDecimal border = BigDecimal.ZERO;
-            int result = balance.compareTo(border);
+        if (balance != null) {
+            BigDecimal emptyAccount = BigDecimal.ZERO;
+            int result = balance.compareTo(emptyAccount);
             return result != -1;
-        }else return false;
+        } else return false;
     }
 
     @Override
     public boolean isCloseDateIsBeforePresentDate(LocalDate closingDate) {
-        if(closingDate != null) {
+        if (closingDate != null) {
             LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
             return presentDate.compareTo(closingDate) <= 0;
-        }else return false;
+        } else return false;
     }
 
     @Override
@@ -50,10 +50,10 @@ public class AccountValidatorsImpl implements AccountValidators {
         if (iban != null) {
             int length = iban.length();
             if (length == 28) {
-                String begining = iban.substring(0, 2);
-                String rest = iban.substring(2);
-                boolean isIbanContainsPolishPrefix = begining.equals("PL");
-                boolean isIbanContainsOnlyNumbersAfterPrefix = StringUtils.isNumeric(rest);
+                String countryCodeInIbanNumber = iban.substring(0, 2);
+                String ibanNumberOfAccount = iban.substring(2);
+                boolean isIbanContainsPolishPrefix = countryCodeInIbanNumber.equals("PL");
+                boolean isIbanContainsOnlyNumbersAfterPrefix = StringUtils.isNumeric(ibanNumberOfAccount);
 
                 return isIbanContainsPolishPrefix && isIbanContainsOnlyNumbersAfterPrefix;
             } else return false;
