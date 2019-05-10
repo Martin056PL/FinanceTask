@@ -40,9 +40,7 @@ public class AccountValidatorsImpl implements AccountValidators {
     public boolean isCloseDateIsBeforePresentDate(LocalDate closingDate) {
         if(closingDate != null) {
             LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
-            boolean isBefore = closingDate.isBefore(presentDate);
-            if (isBefore) return false;
-            else return true;
+            return presentDate.compareTo(closingDate) <= 0;
         }else return false;
     }
 
