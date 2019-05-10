@@ -2,13 +2,8 @@ package wawer.kamil.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 import java.util.List;
 
 public class Parser {
@@ -21,13 +16,26 @@ public class Parser {
 
     public AccountList readFromXML() throws IOException {
         return objectMapper.readValue(
-                StringUtils.toEncodedString(Files.readAllBytes
-                                (Paths.get("src/main/resources/SourceData.xml"))
-                        , StandardCharsets.UTF_8), AccountList.class);
+                readTextFromFile(), AccountList.class);
     }
 
     public void writeToXML(List<Account> account) throws IOException {
         objectMapper.writeValue(new
                 File("src/main/resources/SortedData.xml"), account);
+    }
+
+    private String readTextFromFile() throws IOException {
+
+        InputStream in = new FileInputStream("src/main/resources/SourceData.xml");
+        BufferedReader buff = new BufferedReader(new InputStreamReader(in));
+
+        String line = buff.readLine();
+        StringBuilder builder = new StringBuilder();
+
+        while(line != null){
+            builder.append(line).append("\n");
+            line = buff.readLine(); }
+
+        return builder.toString();
     }
 }
