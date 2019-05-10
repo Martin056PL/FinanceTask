@@ -22,7 +22,8 @@ public class AccountValidatorsImpl implements AccountValidators {
     public boolean isCurrencyEqualsPLN(String currency) {
         //TODO czy mam uwzględniać wilkość liter? Założenie, że ma być wielkimi literami
         if (currency != null) {
-            return currency.equals("PLN");
+            String upperCaseCurrency = currency.toUpperCase();
+            return upperCaseCurrency.equals("PLN");
         } else throw new IllegalArgumentException();
     }
 
