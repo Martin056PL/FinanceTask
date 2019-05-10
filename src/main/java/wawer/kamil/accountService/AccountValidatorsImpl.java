@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 public class AccountValidatorsImpl implements AccountValidators {
 
+    @Override
     public boolean checkAllValidators(Account account) {
         boolean currency = isCurrencyEqualsPLN(account.getCurrency());
         boolean balance = isBalanceLowerThanZero(account.getBalance());
@@ -17,6 +18,7 @@ public class AccountValidatorsImpl implements AccountValidators {
         return currency && balance && date && format;
     }
 
+    @Override
     public boolean isCurrencyEqualsPLN(String currency) {
         //TODO czy mam uwzględniać wilkość liter? Założenie, że ma być wielkimi literami
         if (currency != null) {
@@ -24,12 +26,14 @@ public class AccountValidatorsImpl implements AccountValidators {
         } else throw new IllegalArgumentException();
     }
 
+    @Override
     public boolean isBalanceLowerThanZero(BigDecimal balance) {
         BigDecimal border = BigDecimal.ZERO;
         int result = balance.compareTo(border);
         return result != -1;
     }
 
+    @Override
     public boolean isCloseDateIsBeforePresentDate(LocalDate closingDate) {
         LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
         boolean isBefore = closingDate.isBefore(presentDate);
@@ -37,6 +41,7 @@ public class AccountValidatorsImpl implements AccountValidators {
         else return true;
     }
 
+    @Override
     public boolean isIbanHasCorrectFormat(String iban) throws NullPointerException {
         //TODO Czy zakładamy że spacje w podanym numerze sa nieakceptowalne? czy też dopuszczalne? Założenie: tylko ciągły numer rachunku bez spacji.
         if (iban != null) {

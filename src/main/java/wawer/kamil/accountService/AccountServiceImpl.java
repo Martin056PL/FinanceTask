@@ -15,6 +15,7 @@ public class AccountServiceImpl implements AccountService {
         this.validators = new AccountValidatorsImpl();
     }
 
+    @Override
     public List<Account> validateEverySingleAccount(List<Account> sourceAccountList) {
         List<Account> validatedList = new LinkedList<>();
         Iterator<Account> iterator = sourceAccountList.iterator();
@@ -28,6 +29,7 @@ public class AccountServiceImpl implements AccountService {
         }return validatedList;
     }
 
+    @Override
     public List<Account> sortValidatedAccountList(List<Account> validatedAccountList){
         List<Account> sortedList = new LinkedList<>(validatedAccountList);
 
