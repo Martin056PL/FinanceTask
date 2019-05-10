@@ -18,15 +18,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> validateEverySingleAccount(List<Account> sourceAccountList) {
         List<Account> validatedList = new LinkedList<>();
-        Iterator<Account> iterator = sourceAccountList.iterator();
-        boolean hasNext = iterator.hasNext();
-        while (hasNext) {
-            Account account = iterator.next();
-            if (validators.checkAllValidators(account)) {
+        for (Account account: sourceAccountList) {
+            if(validators.checkAllValidators(account))
                 validatedList.add(account);
-                continue;
-            } hasNext = iterator.hasNext();
-        }return validatedList;
+        }
+        return validatedList;
     }
 
     @Override
