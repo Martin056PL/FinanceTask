@@ -17,14 +17,14 @@ public final class Account implements Serializable {
     @JacksonXmlProperty(localName = "currency")
     private String currency;
     @JacksonXmlProperty(localName = "balance")
-    private BigDecimal balance;
+    private String balance;
     @JacksonXmlProperty(localName = "closingDate")
     private String closingDate;
 
     public Account() {
     }
 
-    public Account(String accountIban, String name, String currency, BigDecimal balance, String closingDate) {
+    public Account(String accountIban, String name, String currency, String balance, String closingDate) {
         this.accountIban = accountIban;
         this.name = name;
         this.currency = currency;
@@ -56,11 +56,11 @@ public final class Account implements Serializable {
         this.currency = currency;
     }
 
-    public BigDecimal getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 

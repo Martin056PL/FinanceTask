@@ -11,9 +11,11 @@ public interface AccountValidators {
 
     boolean isCurrencyEqualsPLN(String currency);
 
-    boolean isBalanceLowerThanZero(BigDecimal balance);
+    boolean isBalanceLowerThanZero(String balance);
 
     boolean isCloseDateIsBeforePresentDate(LocalDate closingDate);
 
     boolean isIbanHasCorrectFormat(String iban);
+
+    boolean isNameNotNull(String name);
 }

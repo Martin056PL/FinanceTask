@@ -10,32 +10,38 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean checkAllValidators(Account account) {
+        //TODO co w przypadku gdy któreś pole nie jest nulle ale jest puste? Założenie: odrzucić
         boolean currency = isCurrencyEqualsPLN(account.getCurrency());
         boolean balance = isBalanceLowerThanZero(account.getBalance());
         LocalDate dateCreatedByString = LocalDate.parse(account.getClosingDate());
         boolean date = isCloseDateIsBeforePresentDate(dateCreatedByString);
         boolean format = isIbanHasCorrectFormat(account.getAccountIban());
+        boolean name = isNameNotNull(account.getName());
 
-        return currency && balance && date && format;
+        return currency && balance && date && format && name;
     }
+
 
     @Override
     public boolean isCurrencyEqualsPLN(String currency) {
         //TODO czy mam uwzględniać wilkość liter? Założenie, że ma być wielkimi literami
-        if (currency != null) {
+        if (currency != null || !currency.isEmpty()) {
             String upperCaseCurrency = currency.toUpperCase();
             return upperCaseCurrency.equals("PLN");
         } else return false;
     }
 
     @Override
-    public boolean isBalanceLowerThanZero(BigDecimal balance) {
-        if (balance != null) {
+    public boolean isBalanceLowerThanZero(String balance) {
+        if (balance != null && !balance.isEmpty()) {
+            BigDecimal balanceInBigDecimal = convertStringToBigDecimal(balance);
             BigDecimal emptyAccount = BigDecimal.ZERO;
-            int result = balance.compareTo(emptyAccount);
+            int result = balanceInBigDecimal.compareTo(emptyAccount);
             return result != -1;
         } else return false;
     }
+
+
 
     @Override
     public boolean isCloseDateIsBeforePresentDate(LocalDate closingDate) {
@@ -46,9 +52,9 @@ public class AccountValidatorsImpl implements AccountValidators {
     }
 
     @Override
-    public boolean isIbanHasCorrectFormat(String iban){
+    public boolean isIbanHasCorrectFormat(String iban) {
         //TODO Czy zakładamy że spacje w podanym numerze sa nieakceptowalne? czy też dopuszczalne? Założenie: tylko ciągły numer rachunku bez spacji.
-        if (iban != null) {
+        if (iban != null || !iban.isEmpty()) {
             int length = iban.length();
             if (length == 28) {
                 String countryCodeInIbanNumber = iban.substring(0, 2);
@@ -59,5 +65,15 @@ public class AccountValidatorsImpl implements AccountValidators {
                 return isIbanContainsPolishPrefix && isIbanContainsOnlyNumbersAfterPrefix;
             } else return false;
         } else return false;
+    }
+
+    @Override
+    public boolean isNameNotNull(String name) {
+        return name != null || !name.isEmpty();
+    }
+
+    private BigDecimal convertStringToBigDecimal(String balance) {
+        double balanceInInteger = Double.parseDouble(balance);
+        return BigDecimal.valueOf(balanceInInteger);
     }
 }
