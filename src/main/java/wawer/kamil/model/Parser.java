@@ -1,6 +1,6 @@
 package wawer.kamil.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.*;
@@ -8,34 +8,19 @@ import java.util.List;
 
 public class Parser {
 
-     private ObjectMapper objectMapper;
+    private XmlMapper xmlMapper;
 
     public Parser() {
-        this.objectMapper = new XmlMapper();
+        this.xmlMapper = new XmlMapper();
+        this.xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
-    public AccountList readFromXML() throws IOException {
-        return objectMapper.readValue(
-                readTextFromFile(), AccountList.class);
+    public AccountList readFromXML(File xmlFile) throws IOException {
+        return xmlMapper.readValue(xmlFile, AccountList.class);
     }
 
-    public void writeToXML(List<Account> account) throws IOException {
-        objectMapper.writeValue(new
-                File("src/main/resources/SortedData.xml"), account);
+    public void writeToXML(List<Account> accounts, File output) throws IOException {
+        xmlMapper.writeValue(output, new AccountList(accounts));
     }
 
-    private String readTextFromFile() throws IOException {
-
-        InputStream in = new FileInputStream("src/main/resources/SourceData.xml");
-        BufferedReader buff = new BufferedReader(new InputStreamReader(in));
-
-        String line = buff.readLine();
-        StringBuilder builder = new StringBuilder();
-
-        while(line != null){
-            builder.append(line).append("\n");
-            line = buff.readLine(); }
-
-        return builder.toString();
-    }
 }

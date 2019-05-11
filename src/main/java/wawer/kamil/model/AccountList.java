@@ -1,6 +1,7 @@
 package wawer.kamil.model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import java.util.List;
@@ -8,7 +9,8 @@ import java.util.List;
 @JacksonXmlRootElement(localName = "accounts")
 public final class AccountList {
 
-    @JacksonXmlElementWrapper(localName = "accountList", useWrapping = false)
+    @JacksonXmlProperty(localName = "account")
+    @JacksonXmlElementWrapper(useWrapping = false)
     private List<Account> accountList;
 
     public AccountList() {
