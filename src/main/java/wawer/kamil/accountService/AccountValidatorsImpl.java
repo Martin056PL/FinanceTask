@@ -25,7 +25,7 @@ public class AccountValidatorsImpl implements AccountValidators {
     @Override
     public boolean isCurrencyEqualsPLN(String currency) {
         //TODO czy mam uwzględniać wilkość liter? Założenie, że ma być wielkimi literami
-        if (currency != null || !currency.isEmpty()) {
+        if (currency != null && !currency.isEmpty()) {
             String upperCaseCurrency = currency.toUpperCase();
             return upperCaseCurrency.equals("PLN");
         } else return false;
@@ -33,7 +33,7 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isBalanceLowerThanZero(String balance) {
-        if (balance != null && !balance.isEmpty()) {
+        if (balance != null && !balance.isEmpty() && asd(balance)) {
             BigDecimal balanceInBigDecimal = convertStringToBigDecimal(balance);
             BigDecimal emptyAccount = BigDecimal.ZERO;
             int result = balanceInBigDecimal.compareTo(emptyAccount);
@@ -54,7 +54,7 @@ public class AccountValidatorsImpl implements AccountValidators {
     @Override
     public boolean isIbanHasCorrectFormat(String iban) {
         //TODO Czy zakładamy że spacje w podanym numerze sa nieakceptowalne? czy też dopuszczalne? Założenie: tylko ciągły numer rachunku bez spacji.
-        if (iban != null || !iban.isEmpty()) {
+        if (iban != null && !iban.isEmpty()) {
             int length = iban.length();
             if (length == 28) {
                 String countryCodeInIbanNumber = iban.substring(0, 2);
@@ -69,11 +69,21 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isNameNotNull(String name) {
-        return name != null || !name.isEmpty();
+        return name != null && !name.isEmpty();
     }
 
     private BigDecimal convertStringToBigDecimal(String balance) {
         double balanceInInteger = Double.parseDouble(balance);
         return BigDecimal.valueOf(balanceInInteger);
+    }
+
+    private boolean asd(String string){
+        boolean numeric = true;
+        try {
+            Double.parseDouble(string);
+        } catch (NumberFormatException e) {
+            numeric = false;
+        }
+        return numeric;
     }
 }
