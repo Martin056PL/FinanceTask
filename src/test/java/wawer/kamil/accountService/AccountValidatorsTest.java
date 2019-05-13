@@ -1,7 +1,7 @@
+package wawer.kamil.accountService;
+
 import org.junit.Assert;
 import org.junit.Test;
-import wawer.kamil.accountService.AccountValidators;
-import wawer.kamil.accountService.AccountValidatorsImpl;
 
 import java.time.LocalDate;
 
@@ -13,11 +13,15 @@ public class AccountValidatorsTest {
         this.validators = new AccountValidatorsImpl();
     }
 
+    private final String nullString = null;
+    private final String emptyString = "";
+    private final String blankString = " ";
+
     // IBAN NUMBER
     @Test
     public void should_Return_False_When_Account_Iban_Is_Null() {
         //given
-        String iban = null;
+        String iban = nullString;
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
         //than
@@ -27,7 +31,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Iban_Is_Empty() {
         //given
-        String iban = "";
+        String iban = emptyString;
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
         //than
@@ -37,7 +41,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Iban_Is_Blank() {
         //given
-        String iban = " ";
+        String iban = blankString;
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
         //than
@@ -95,7 +99,7 @@ public class AccountValidatorsTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenAccountIbanHasNotPolishPrefix() {
+    public void should_Return_False_When_Account_Iban_Has_Not_Polish_Prefix() {
         //given
         String iban = "CZ61109010140000071219812870";
         //when
@@ -117,7 +121,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Iban_Has_Forbidden_Signs_In_Second_Part_Of_Number() {
         //given
-        String iban = "CZ611090101RK0@007__PD812270";
+        String iban = "CZ611090101RK0@007__PD812!70";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
         //than
@@ -128,7 +132,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Name_Is_Null() {
         //given
-        String name = null;
+        String name = nullString;
         //when
         boolean result = validators.isNameNotNullAndIsNotEmpty(name);
         //than
@@ -138,7 +142,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Name_Is_Empty() {
         //given
-        String name = "";
+        String name = emptyString;
         //when
         boolean result = validators.isNameNotNullAndIsNotEmpty(name);
         //than
@@ -148,7 +152,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Name_Is_Blank() {
         //given
-        String name = " ";
+        String name = blankString;
         //when
         boolean result = validators.isNameNotNullAndIsNotEmpty(name);
         //than
@@ -165,11 +169,21 @@ public class AccountValidatorsTest {
         Assert.assertTrue(result);
     }
 
+    @Test
+    public void should_Return_True_When_Account_Name_Has_Any_Title_With_Spaces_Between_And_Or_After_Name() {
+        //given
+        String name = " anyName123! ";
+        //when
+        boolean result = validators.isNameNotNullAndIsNotEmpty(name);
+        //than
+        Assert.assertTrue(result);
+    }
+
     //CURRENCY
     @Test
     public void should_Return_False_When_Account_Currency_Is_Null() {
         //given
-        String currency = null;
+        String currency = nullString;
         //when
         boolean result = validators.isCurrencyEqualsPLN(currency);
         //than
@@ -179,18 +193,17 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Currency_Is_Empty() {
         //given
-        String currency = "";
+        String currency = emptyString;
         //when
         boolean result = validators.isCurrencyEqualsPLN(currency);
         //than
-        System.out.println("Doszlifować test na pusty string w walucie!!!");
         Assert.assertFalse(result);
     }
 
     @Test
     public void should_Return_False_When_Account_Currency_Is_Blank() {
         //given
-        String currency = " ";
+        String currency = blankString;
         //when
         boolean result = validators.isCurrencyEqualsPLN(currency);
         //than
@@ -251,7 +264,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Balance_Is_Null() {
         //given
-        String balance = null;
+        String balance = nullString;
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
         //than
@@ -261,7 +274,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Balance_Is_Empty() {
         //given
-        String balance = "";
+        String balance = emptyString;
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
         //than
@@ -276,6 +289,16 @@ public class AccountValidatorsTest {
         boolean result = validators.isBalanceLowerThanZero(balance);
         //than
         Assert.assertTrue(result);
+    }
+
+    @Test
+    public void should_Return_False_When_Separator_Is_Coma_Instead_Of_Dot() {
+        //given
+        String balance = "123,63";
+        //when
+        boolean result = validators.isBalanceLowerThanZero(balance);
+        //than
+        Assert.assertFalse(result);
     }
 
     @Test
@@ -301,7 +324,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Balance_In_Not_Numerical() {
         //given
-        String balance = "TenZlotys";
+        String balance = "10Zlotys";
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
         //than
@@ -312,7 +335,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Closing_Date_Is_Null() {
         //given
-        String closingDate = null;
+        String closingDate = nullString;
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
         //than
@@ -322,7 +345,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Closing_Date_Is_Empty() {
         //given
-        String closingDate = "";
+        String closingDate = emptyString;
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
         //than
@@ -332,7 +355,7 @@ public class AccountValidatorsTest {
     @Test
     public void should_Return_False_When_Account_Closing_Date_Is_Blank() {
         //given
-        String closingDate = " ";
+        String closingDate = blankString;
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
         //than

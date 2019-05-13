@@ -5,6 +5,7 @@ import wawer.kamil.model.Account;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class AccountValidatorsImpl implements AccountValidators {
 
@@ -40,7 +41,7 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isNameNotNullAndIsNotEmpty(String name) {
-        return isNotNullAndIsNotEmptyIncludingBlankString(name);
+            return isNotNullAndIsNotEmptyIncludingBlankString(name);
     }
 
     @Override
@@ -66,8 +67,10 @@ public class AccountValidatorsImpl implements AccountValidators {
     public boolean isCloseDateIsBeforePresentDate(String closingDate) {
         if (isNotNullAndIsNotEmptyIncludingBlankString(closingDate)) {
             LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
-            LocalDate localDateClosingDate = convertClosingDateFromStringIntoLocalDate(closingDate);
-            return presentDate.compareTo(localDateClosingDate) <= 0;
+            if (isDateHasCorrectFormat(closingDate)) {
+                LocalDate localDateClosingDate = convertClosingDateFromStringIntoLocalDate(closingDate);
+                return presentDate.compareTo(localDateClosingDate) <= 0;
+            } else return false;
         } else return false;
     }
 
@@ -76,7 +79,19 @@ public class AccountValidatorsImpl implements AccountValidators {
     }
 
     private LocalDate convertClosingDateFromStringIntoLocalDate(String closingDate) {
-        return LocalDate.parse(closingDate);
+        if (isDateHasCorrectFormat(closingDate)) {
+            return LocalDate.parse(closingDate);
+        } else throw new IllegalArgumentException();
+    }
+
+    private boolean isDateHasCorrectFormat(String closingDate) {
+        boolean result = true;
+        try {
+            LocalDate.parse(closingDate);
+        } catch (DateTimeParseException e) {
+            result = false;
+        }
+        return result;
     }
 
     private BigDecimal convertStringToBigDecimal(String balance) {
