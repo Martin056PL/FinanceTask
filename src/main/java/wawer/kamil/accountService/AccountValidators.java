@@ -13,9 +13,9 @@ public interface AccountValidators {
 
     boolean isBalanceLowerThanZero(String balance);
 
-    boolean isCloseDateIsBeforePresentDate(LocalDate closingDate);
+    boolean isCloseDateIsBeforePresentDate(String closingDate);
 
     boolean isIbanHasCorrectFormat(String iban);
 
-    boolean isNameNotNull(String name);
+    boolean isNameNotNullAndIsNotEmpty(String name);
 }
