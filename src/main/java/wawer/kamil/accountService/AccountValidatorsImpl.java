@@ -33,7 +33,7 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isBalanceLowerThanZero(String balance) {
-        if (balance != null && !balance.isEmpty() && asd(balance)) {
+        if (balance != null && !balance.isEmpty() && isNumeric(balance)) {
             BigDecimal balanceInBigDecimal = convertStringToBigDecimal(balance);
             BigDecimal emptyAccount = BigDecimal.ZERO;
             int result = balanceInBigDecimal.compareTo(emptyAccount);
@@ -77,7 +77,7 @@ public class AccountValidatorsImpl implements AccountValidators {
         return BigDecimal.valueOf(balanceInInteger);
     }
 
-    private boolean asd(String string){
+    private boolean isNumeric(String string){
         boolean numeric = true;
         try {
             Double.parseDouble(string);

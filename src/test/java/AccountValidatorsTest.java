@@ -2,9 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import wawer.kamil.accountService.AccountValidators;
 import wawer.kamil.accountService.AccountValidatorsImpl;
-import wawer.kamil.model.Account;
-
-import java.math.BigDecimal;
 
 public class AccountValidatorsTest {
 
@@ -14,182 +11,259 @@ public class AccountValidatorsTest {
         this.validators = new AccountValidatorsImpl();
     }
 
+    //CURRENCY
     @Test
-    public void shouldReturnFalseWhenAccountClosingDateIsNull() {
-        Account account = new Account("PL61109010140000071219812870", "name1", "PLN", "12.13", null);
-        boolean result = validators.isIbanHasCorrectFormat(account.getClosingDate());
+    public void should_Return_False_When_Account_Currency_Is_Null() {
+        //given
+        String currency = null;
+        //when
+        boolean result = validators.isCurrencyEqualsPLN(currency);
+        //than
         Assert.assertFalse(result);
     }
 
-        //CURRENCY
-        @Test
-        public void shouldReturnFalseWhenAccountCurrencyIsNull() {
-            Account account = new Account("PL61109010140000071219812870", "name1", null, "12.13", "30-08-2030");
-            boolean result = validators.isCurrencyEqualsPLN(account.getCurrency());
-            Assert.assertFalse(result);
-        }
+    @Test
+    public void should_Return_False_When_Account_Currency_Is_Empty() {
+        //given
+        String currency = "";
+        //when
+        boolean result = validators.isCurrencyEqualsPLN(currency);
+        //than
+        System.out.println("Doszlifować test na pusty string w walucie!!!");
+        Assert.assertFalse(result);
+    }
 
-        @Test
-        public void shouldReturnTrueWhenCurrencyEqualsPLN() {
-            Account account = new Account("PL61109010140000071219812870", "name1", "PLN", "12.13", "2020-12-12");
-            boolean result = validators.isCurrencyEqualsPLN(account.getCurrency());
-            Assert.assertTrue(result);
-        }
+    @Test
+    public void should_Return_True_When_Account_Currency_Equals_PLN() {
+        //given
+        String currentCurrency = "PLN";
+        //when
+        boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
+        //than
+        Assert.assertTrue(result);
+    }
 
-        @Test
-        public void shouldReturnTrueWhenCurrencyEqualsPLNInLowerCase() {
-            Account account = new Account("PL61109010140000071219812870", "name1", "pln", "12.13", "2020-12-12");
-            boolean result = validators.isCurrencyEqualsPLN(account.getCurrency());
-            Assert.assertTrue(result);
-        }
+    @Test
+    public void should_Return_True_When_Currency_Equals_PLN_In_Lower_Case() {
+        //given
+        String currentCurrency = "pln";
+        //when
+        boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
+        //than
+        Assert.assertTrue(result);
+    }
 
-        @Test
-        public void shouldReturnFalseWhenCurrencyNotEqualsPLNForExampleUSD() {
-            Account account = new Account("PL61109010140000071219812870", "name1", "USD", "12.13", "2020-12-12");
-            boolean result = validators.isCurrencyEqualsPLN(account.getCurrency());
-            Assert.assertFalse(result);
-        }
+    @Test
+    public void should_Return_False_When_Currency_Not_Equals_PLN_For_Example_USD() {
+        //given
+        String currentCurrency = "USD";
+        //when
+        boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
+        //than
+        Assert.assertFalse(result);
+    }
 
-        @Test
-        public void shouldReturnFalseWhenCurrencyIsEmpty() {
-            Account account = new Account("PL61109010140000071219812870", "name1", "", "12.13", "2020-12-12");
-            boolean result = validators.isCurrencyEqualsPLN(account.getCurrency());
-            Assert.assertFalse(result);
-        }
-
-        @Test
-        public void shouldReturnFalseWhenCurrencyIsWroteWithSpaces() {
-            Account account = new Account("PL61109010140000071219812870", "name1", "P L N ", "12.13", "2020-12-12");
-            boolean result = validators.isCurrencyEqualsPLN(account.getCurrency());
-            Assert.assertFalse(result);
-        }
+    @Test
+    public void should_Return_False_When_Currency_Is_Wrote_With_Spaces() {
+        //given
+        String currentCurrency = "P L N ";
+        //when
+        boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
+        //than
+        Assert.assertFalse(result);
+    }
 
     //BALANCE
     @Test
-    public void shouldReturnFalseWhenAccountBalanceIsNull() {
-        Account account = new Account("PL61109010140000071219812870", "name1", "PLN", null, "30-08-2030");
-        boolean result = validators.isBalanceLowerThanZero(account.getBalance());
+    public void should_Return_False_When_Account_Balance_Is_Null() {
+        //given
+        String balance = null;
+        //when
+        boolean result = validators.isBalanceLowerThanZero(balance);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnFalseWhenBalanceIsEmpty() {
-        Account account = new Account("PL61109010140000071219812870", "name1", "PLN", "", "2020-12-12");
-        boolean result = validators.isBalanceLowerThanZero(account.getBalance());
+    public void should_Return_False_When_Balance_Is_Empty() {
+        //given
+        String balance = "";
+        //when
+        boolean result = validators.isBalanceLowerThanZero(balance);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnTrueWhenBalanceGraterThanZero() {
-        Account account = new Account("PL61109010140000071219812870", "name1", "PLN", "12.13", "2020-12-12");
-        boolean result = validators.isBalanceLowerThanZero(account.getBalance());
+    public void should_Return_True_When_Balance_Grater_Than_Zero() {
+        //given
+        String balance = "123.63";
+        //when
+        boolean result = validators.isBalanceLowerThanZero(balance);
+        //than
         Assert.assertTrue(result);
     }
 
     @Test
-    public void shouldReturnTrueWhenBalanceEqualsZero() {
-        Account account = new Account("PL61109010140000071219812870", "name1", "PLN", "0", "2020-12-12");
-        boolean result = validators.isBalanceLowerThanZero(account.getBalance());
+    public void should_Return_True_When_Balance_Equals_Zero() {
+        //given
+        String balance = "0";
+        //when
+        boolean result = validators.isBalanceLowerThanZero(balance);
+        //than
         Assert.assertTrue(result);
     }
 
     @Test
-    public void shouldReturnTrueWhenBalanceLowerThanZero() {
-        Account account = new Account("PL61109010140000071219812870", "name1", "PLN", "-12.13", "2020-12-12");
-        boolean result = validators.isBalanceLowerThanZero(account.getBalance());
+    public void should_Return_True_When_Balance_Lower_Than_Zero() {
+        //given
+        String balance = "-340.45";
+        //when
+        boolean result = validators.isBalanceLowerThanZero(balance);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnFalseWhenBalanceInNotNumerical() {
-        Account account = new Account("PL61109010140000071219812870", "name1", "PLN", "notNumeric.forSure", "2020-12-12");
-        boolean result = validators.isBalanceLowerThanZero(account.getBalance());
+    public void should_Return_False_When_Balance_In_Not_Numerical() {
+        //given
+        String balance = "TenZlotys";
+        //when
+        boolean result = validators.isBalanceLowerThanZero(balance);
+        //than
         Assert.assertFalse(result);
     }
 
-        //ACCOUNT NAME
-        @Test
-        public void shouldReturnFalseWhenAccountNameIsNull() {
-            Account account = new Account("PL61109010140000071219812870", null, "PLN", "12.13", "30-08-2030");
-            boolean result = validators.isNameNotNull(account.getName());
-            Assert.assertFalse(result);
-        }
+    //ACCOUNT NAME
+    @Test
+    public void should_Return_False_When_Account_Name_Is_Null() {
+        //given
+        String name = null;
+        //when
+        boolean result = validators.isNameNotNull(name);
+        //than
+        Assert.assertFalse(result);
+    }
 
-        @Test
-        public void shouldReturnFalseWhenAccountNameIsEmpty() {
-            Account account = new Account("PL61109010140000071219812870", "", "PLN", "12.13", "30-08-2030");
-            boolean result = validators.isNameNotNull(account.getName());
-            Assert.assertFalse(result);
-        }
+    @Test
+    public void should_Return_False_When_Account_Name_Is_Empty() {
+        //given
+        String name = "";
+        //when
+        boolean result = validators.isNameNotNull(name);
+        //than
+        Assert.assertFalse(result);
+    }
 
-        @Test
-        public void shouldReturnTrueWhenAccountNameHasAnyTitle() {
-            Account account = new Account("PL61109010140000071219812870", "anyName123!", "PLN", "12.13", "30-08-2030");
-            boolean result = validators.isNameNotNull(account.getName());
-            Assert.assertTrue(result);
+    @Test
+    public void should_Return_True_When_Account_Name_Has_Any_Title() {
+        //given
+        String name = "anyName123!";
+        //when
+        boolean result = validators.isNameNotNull(name);
+        //than
+        Assert.assertTrue(result);
     }
 
     // IBAN NUMBER
     @Test
-    public void shouldReturnFalseWhenAccountIbanIsNull() {
-        Account account = new Account(null, "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+    public void should_Return_False_When_Account_Iban_Is_Null() {
+        //given
+        String iban = null;
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnFalseWhenAccountIbanIsEmpty() {
-        Account account = new Account("", "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+    public void should_Return_False_When_Account_Iban_Is_Empty() {
+        //given
+        String iban = "";
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnTrueWhenAccountIbanIsCorrect() {
-        Account account = new Account("PL61109010140000071219812870", "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+    public void should_Return_True_When_Account_Iban_Is_Correct() {
+        //given
+        String iban = "PL61109010140000071219812870";
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
         Assert.assertTrue(result);
     }
 
     @Test
-    public void shouldReturnFalseWhenAccountIbanHasLittleLettersInPrefix() {
-        Account account = new Account("pl61109010140000071219812870", "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+    public void should_Return_False_When_Account_Iban_Has_Little_Letters_In_Prefix() {
+        //given
+        String iban = "pl61109010140000071219812870";
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnFalseWhenAccountIbanHasMoreThan28Signs() {
-        Account account = new Account("PL611090101400000712198128701231231231233123", "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+    public void should_Return_False_When_Account_Iban_Has_More_Than_28_Signs() {
+        //given
+        String iban = "PL611090101400000712198128701231231231233123";
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnFalseWhenAccountIbanHasLessThan28Signs() {
-        Account account = new Account("PL611090101", "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+    public void should_Return_False_When_Account_Iban_Has_Less_Than_28_Signs() {
+        //given
+        String iban = "PL611090101";
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
     public void shouldReturnFalseWhenAccountIbanHasNotPolishPrefix() {
-        Account account = new Account("CZ61109010140000071219812870", "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+        //given
+        String iban = "CZ61109010140000071219812870";
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnFalseWhenAccountIbanHasLettersInSecondPartOfNumber() {
-        Account account = new Account("CZ611090101RK0000712PD812870", "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+    public void should_Return_False_When_Account_Iban_Has_Letters_In_Second_Part_Of_Number() {
+        //given
+        String iban = "CZ611090101RK0000712PD812870";
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
         Assert.assertFalse(result);
     }
 
     @Test
-    public void shouldReturnFalseWhenAccountIbanHasSpecialSignsInSecondPartOfNumber() {
-        Account account = new Account("CZ611090101RK0@007__PD812270", "name1", "PLN", "12.13", "30-08-2030");
-        boolean result = validators.isIbanHasCorrectFormat(account.getAccountIban());
+    public void should_Return_False_When_Account_Iban_Has_Special_Signs_In_Second_Part_Of_Number() {
+        //given
+        String iban = "CZ611090101RK0@007__PD812270";
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(iban);
+        //than
+        Assert.assertFalse(result);
+    }
+
+    //CLOSING DATE
+    @Test
+    public void should_Return_False_When_Account_Closing_Date_Is_Null() {
+        //given
+        String closingDate = null;
+        //when
+        boolean result = validators.isIbanHasCorrectFormat(closingDate);
+        //than
         Assert.assertFalse(result);
     }
 }

@@ -3,8 +3,6 @@ package wawer.kamil.model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public final class Account implements Serializable {
@@ -22,6 +20,7 @@ public final class Account implements Serializable {
     private String closingDate;
 
     public Account() {
+        //Constructor for XML_Parser
     }
 
     public Account(String accountIban, String name, String currency, String balance, String closingDate) {
