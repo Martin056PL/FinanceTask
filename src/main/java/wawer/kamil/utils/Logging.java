@@ -9,9 +9,6 @@ public class Logging {
 
     public static final Logger LOGGER = Logger.getLogger(Logging.class.getName());
 
-    public Logging() {
-    }
-
     public static void createLogger() throws IOException {
         CustomFormatter customFormatter = new CustomFormatter();
         FileHandler fileHandler = new FileHandler("src/main/resources/logs.log");
