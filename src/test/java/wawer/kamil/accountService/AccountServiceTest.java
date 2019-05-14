@@ -1,5 +1,6 @@
 package wawer.kamil.accountService;
 
+import org.junit.Assert;
 import org.junit.Test;
 import wawer.kamil.model.Account;
 
@@ -10,7 +11,7 @@ public class AccountServiceTest {
 
     private AccountService service;
 
-    AccountServiceTest(){
+    public AccountServiceTest(){
         this.service = new AccountServiceImpl();
     }
 
@@ -24,6 +25,14 @@ public class AccountServiceTest {
         listOfAccounts.add(new Account("PL61109010140000071219812874", "name6", "PLN", "-100.00", "2039-05-15"));
         listOfAccounts.add(new Account("PLL1109010140000071219812876", "name7", "PLN", "1", "2010-01-01"));
         return listOfAccounts;
+    }
+
+    @Test
+    public void should_Size_Of_Default_Repository_Is_Equal_7(){
+        //when
+        List<Account> defaultRepository = getDefaultRepository();
+        //than
+        Assert.assertEquals(7,defaultRepository.size());
     }
 
     @Test
