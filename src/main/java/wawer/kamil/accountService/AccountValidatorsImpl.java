@@ -2,6 +2,7 @@ package wawer.kamil.accountService;
 
 import org.apache.commons.lang3.StringUtils;
 import wawer.kamil.model.Account;
+import wawer.kamil.utils.Logging;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,16 +12,32 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean checkAllValidators(Account account) {
-        //TODO co w przypadku gdy któreś pole nie jest nulle ale jest puste? Założenie: odrzucić
-        if(account != null) {
+        if (account != null) {
+            Logging.LOGGER.info("IBAN:");
             boolean format = isIbanHasCorrectFormat(account.getAccountIban());
-            boolean name = isNameNotNullAndIsNotEmpty(account.getName());
-            boolean currency = isCurrencyEqualsPLN(account.getCurrency());
-            boolean balance = isBalanceLowerThanZero(account.getBalance());
-            boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
+            Logging.LOGGER.info("iban has correct form:  " + format);
 
-            return format && name && currency && balance && date;
-        }else return false;
+            Logging.LOGGER.info("NAME:");
+            boolean name = isNameNotNullAndIsNotEmpty(account.getName());
+            Logging.LOGGER.info("name has correct format: " + name);
+
+            Logging.LOGGER.info("CURRENCY:");
+            boolean currency = isCurrencyEqualsPLN(account.getCurrency());
+            Logging.LOGGER.info("currency has correct format: " + currency);
+
+            Logging.LOGGER.info("Balance:");
+            boolean balance = isBalanceLowerThanZero(account.getBalance());
+            Logging.LOGGER.info("balance has correct format: " + balance);
+
+            Logging.LOGGER.info("DATE:");
+            boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
+            Logging.LOGGER.info("date has correct format: " + date);
+
+            boolean isAccountCorrect = format && name && currency && balance && date;
+
+            Logging.LOGGER.info("SUMMARY: Is all data in account validated correctly: " + isAccountCorrect);
+            return isAccountCorrect;
+        } else return false;
     }
 
     @Override
@@ -34,7 +51,6 @@ public class AccountValidatorsImpl implements AccountValidators {
                 String ibanNumberOfAccount = trimedString.substring(2);
                 boolean isIbanContainsPolishPrefix = countryCodeInIbanNumber.toUpperCase().equals("PL");
                 boolean isIbanContainsOnlyNumbersAfterPrefix = StringUtils.isNumeric(ibanNumberOfAccount);
-
                 return isIbanContainsPolishPrefix && isIbanContainsOnlyNumbersAfterPrefix;
             } else return false;
         } else return false;
@@ -42,7 +58,7 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isNameNotNullAndIsNotEmpty(String name) {
-            return isNotNullAndIsNotEmptyIncludingBlankString(name);
+        return isNotNullAndIsNotEmptyIncludingBlankString(name);
     }
 
     @Override
