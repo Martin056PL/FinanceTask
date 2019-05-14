@@ -18,6 +18,7 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> validateEverySingleAccount(List<Account> sourceAccountList) {
         List<Account> validatedList = new LinkedList<>();
         for (Account account: sourceAccountList) {
+            TrimNameOfAccount(account);
             if(validators.checkAllValidators(account))
                 validatedList.add(account);
         }
@@ -34,4 +35,7 @@ public class AccountServiceImpl implements AccountService {
         return sortedList;
     }
 
+    private void TrimNameOfAccount(Account account) {
+        account.setName(account.getName().trim());
+    }
 }

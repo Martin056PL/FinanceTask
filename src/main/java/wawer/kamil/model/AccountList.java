@@ -4,16 +4,19 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
+import java.io.Serializable;
 import java.util.List;
 
 @JacksonXmlRootElement(localName = "accounts")
-public final class AccountList {
+public final class AccountList implements Serializable {
 
+    private static final long serialVersionUID = 9215731280802778862L;
     @JacksonXmlProperty(localName = "account")
     @JacksonXmlElementWrapper(useWrapping = false)
     private List<Account> accountList;
 
     public AccountList() {
+        //constructor for XML Parsing
     }
 
     public AccountList(List<Account> accountList) {
