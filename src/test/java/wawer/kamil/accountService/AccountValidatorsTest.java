@@ -2,6 +2,7 @@ package wawer.kamil.accountService;
 
 import org.junit.Assert;
 import org.junit.Test;
+import wawer.kamil.model.Account;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,48 @@ public class AccountValidatorsTest {
     private final String nullString = null;
     private final String emptyString = "";
     private final String blankString = " ";
+
+    //CheckAllValidatorsMethod
+    @Test
+    public void should_Return_False_When_Account_Is_Null() {
+        //given
+        Account testAccount = null;
+        //when
+        boolean result = validators.checkAllValidators(testAccount);
+        //than
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void should_Return_True_For_Account_With_Correct_Account_Data() {
+        //given
+        Account testAccount = new Account("PL61109010140000071219812870", "name4", "PLN", "123.14", "2029-10-11");
+        //when
+        boolean result = validators.checkAllValidators(testAccount);
+        //than
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void should_Return_False_For_Account_With_Incorrect_Account_Data() {
+        //given
+        Account testAccount = new Account("PL61109010140000071219812870", "name4", "PLN", "123.14", "15-15-2020");
+        //when
+        boolean result = validators.checkAllValidators(testAccount);
+        //than
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void should_Return_False_For_Account_With_Has_Empty_Values() {
+        //given
+        Account testAccount = new Account("", "name4", "", "", "");
+        //when
+        boolean result = validators.checkAllValidators(testAccount);
+        //than
+        Assert.assertFalse(result);
+    }
+
 
     // IBAN NUMBER
     @Test

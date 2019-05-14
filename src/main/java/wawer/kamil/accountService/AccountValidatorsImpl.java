@@ -12,14 +12,15 @@ public class AccountValidatorsImpl implements AccountValidators {
     @Override
     public boolean checkAllValidators(Account account) {
         //TODO co w przypadku gdy któreś pole nie jest nulle ale jest puste? Założenie: odrzucić
+        if(account != null) {
+            boolean format = isIbanHasCorrectFormat(account.getAccountIban());
+            boolean name = isNameNotNullAndIsNotEmpty(account.getName());
+            boolean currency = isCurrencyEqualsPLN(account.getCurrency());
+            boolean balance = isBalanceLowerThanZero(account.getBalance());
+            boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
 
-        boolean format = isIbanHasCorrectFormat(account.getAccountIban());
-        boolean name = isNameNotNullAndIsNotEmpty(account.getName());
-        boolean currency = isCurrencyEqualsPLN(account.getCurrency());
-        boolean balance = isBalanceLowerThanZero(account.getBalance());
-        boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
-
-        return format && name && currency && balance && date;
+            return format && name && currency && balance && date;
+        }else return false;
     }
 
     @Override
@@ -68,7 +69,7 @@ public class AccountValidatorsImpl implements AccountValidators {
         if (isNotNullAndIsNotEmptyIncludingBlankString(closingDate)) {
             LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
             if (isDateHasCorrectFormat(closingDate)) {
-                LocalDate localDateClosingDate = convertClosingDateFromStringIntoLocalDate(closingDate);
+                LocalDate localDateClosingDate = LocalDate.parse(closingDate);
                 return presentDate.compareTo(localDateClosingDate) <= 0;
             } else return false;
         } else return false;
@@ -76,12 +77,6 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     private boolean isNotNullAndIsNotEmptyIncludingBlankString(String accountInformation) {
         return accountInformation != null && !accountInformation.trim().isEmpty();
-    }
-
-    private LocalDate convertClosingDateFromStringIntoLocalDate(String closingDate) {
-        if (isDateHasCorrectFormat(closingDate)) {
-            return LocalDate.parse(closingDate);
-        } else throw new IllegalArgumentException();
     }
 
     private boolean isDateHasCorrectFormat(String closingDate) {

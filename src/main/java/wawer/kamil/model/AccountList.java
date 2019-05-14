@@ -16,7 +16,7 @@ public final class AccountList implements Serializable {
     private List<Account> accountList;
 
     public AccountList() {
-        //constructor for XML Mapping
+        //constructor for XML Parsing
     }
 
     public AccountList(List<Account> accountList) {
