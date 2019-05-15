@@ -17,25 +17,25 @@ public class AccountValidatorsImpl implements AccountValidators {
         if (account != null) {
 
             boolean iban = isIbanHasCorrectFormat(account.getAccountIban());
-            if (!iban)
+            if (!iban) {
                 Logging.LOGGER.info("IBAN for Account with iban number: " + account.getAccountIban() + " is incorrect!");
-
+            }
             boolean name = isNameNotNullAndIsNotEmpty(account.getName());
-            if (!name)
+            if (!name) {
                 Logging.LOGGER.info("Name for Account with iban number: " + account.getAccountIban() + " is incorrect!");
-
+            }
             boolean currency = isCurrencyEqualsPLN(account.getCurrency());
-            if (!currency)
+            if (!currency) {
                 Logging.LOGGER.info("Currency for Account with iban number: " + account.getAccountIban() + " is incorrect!");
-
+            }
             boolean balance = isBalanceLowerThanZero(account.getBalance());
-            if (!balance)
+            if (!balance) {
                 Logging.LOGGER.info("Balance for Account with iban number: " + account.getAccountIban() + " is incorrect!");
-
+            }
             boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
-            if (!date)
+            if (!date) {
                 Logging.LOGGER.info("CloseDate for Account with iban number: " + account.getAccountIban() + " is incorrect!");
-
+            }
             return iban && name && currency && balance && date;
 
         } else return false;

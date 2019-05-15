@@ -23,8 +23,9 @@ public class AccountServiceImpl implements AccountService {
         Logging.LOGGER.info("----------------------------------------------------------------------");
         for (Account account : sourceAccountList) {
             trimNameOfAccount(account);
-            if (validators.checkAllValidators(account))
+            if (validators.checkAllValidators(account)) {
                 validatedList.add(account);
+            }
         }
         Logging.LOGGER.info("----------------------------------------------------------------------");
         Logging.LOGGER.info("Finish validation...");
