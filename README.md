@@ -38,8 +38,8 @@ Aby rachunek został pozytwynie zwalidowany informacje o rachunku muszą spełni
 Numer rachunku:
 1. W pliku .xml musi zostać umieszczona informacja o numerze rachunku, inaczej rachunek zostanie odrzucony
 2. Numer rachunku nie może być pusty ani sładać sie tylko z pustych znaków, inaczej rachunek zostanie odrzucony
-3. Numer rachunku musi być w formacie IBAN (musi posiadać dwucyfrowy prefix skaładajacy się z dwóch liter wskazujących na nazwę kraju oraz dodatkowo 26 cyfr)
-4. Numer rachunku musi wskazywać tylko na polski rachunek - prefix PL. Inny prefiks spowoduje odrzucenia rachunku
+3. Numer rachunku musi być w formacie IBAN (musi posiadać dwucyfrowy prefix, znajdujący się na początku numeru, skaładajacy się z dwóch liter wskazujących na nazwę kraju oraz dodatkowo 26 cyfr jako oznaczenie numeru konta)
+4. Numer rachunku musi wskazywać tylko na polski rachunek - prefix "PL". Inny prefiks spowoduje odrzucenia rachunku
 5. Program dopuszcza zapis polskiego prefixu małymi literami (tj. "pl") lub mieszany ("pL"/"Pl")
 6. Numer rachunku musi mieć zapis ciągły (spacja zawarta wewnątrz numeru konta spowoduje odrzucenie rachunku)
 7. Program dopuszcza znak spacji przed i/lub za numerem rachunku.
@@ -47,13 +47,13 @@ Numer rachunku:
 Nazwa rachunku:
 1. W pliku .xml musi zostać umieszczona informacja o nazwie rachunku, inaczej rachunek zostanie odrzucony
 2. Nazwa rachunku nie może być pusta ani sładać sie tylko z pustych znaków, inaczej rachunek zostanie odrzucony
-3. Program dopuszcza dowolną nazwę rachunku. Dopuszczale są również znaki zapcji przed i/lub za nazwą rachunku
+3. Program dopuszcza dowolną nazwę rachunku. Dopuszczale są również znaki sapcji przed i/lub za nazwą rachunku
 
 Waluta rachunku:
 1. W pliku .xml musi zostać umieszczona informacja o walucie rachunku, inaczej rachunek zostanie odrzucony
 2. Waluta rachunku nie może być pusta ani sładać sie tylko z pustych znaków, inaczej rachunek zostanie odrzucony
 3. Waluta rachunku musi wskazywać na polską walutę tj. PLN. Inny nominał spowoduje odrzucenie konta.
-4. Dopuszczalny jest zapis waluty rachunku małymi literami tj "pln"
+4. Dopuszczalny jest zapis waluty rachunku małymi literami tj "pln" lub miesznay ("pLn")
 5. Waluta rachunku musi mieć zapis ciągły (spacja zawarta wewnątrz waluty konta spowoduje odrzucenie rachunku)
 6. Program dopuszcza znak spacji przed i/lub za walutą rachunku.
 
@@ -67,6 +67,6 @@ Saldo rachunku:
 Data zamknięcia rachunku:
 1. W pliku .xml musi zostać umieszczona informacja o dacie zamknięcia rachunku, inaczej rachunek zostanie odrzucony
 2. Data zamknięcia rachunku nie może być pusta ani sładać sie tylko z pustych znaków, inaczej rachunek zostanie odrzucony
-3. Data zamknięcia rachunku musi być tozsama z datą obecną lub przyszłą. Data przeszła jest nieakceptowalna i spowoduje odrzucenia konta
+3. Data zamknięcia rachunku musi być tożsama z datą obecną lub przyszłą. Data przeszła jest nieakceptowalna i spowoduje odrzucenia konta
 4. Jedyny akceptowalny format daty zakmnięcia rachunku to yyyy-MM-dd gdzie: y - rok, M - miesiąc, d - dzień, inny format spowoduje odrzucenia konta
 5. Program nie uwzględnia stref czasowych
