@@ -1,4 +1,4 @@
-package wawer.kamil.accountService;
+package wawer.kamil.service;
 
 import wawer.kamil.model.Account;
 

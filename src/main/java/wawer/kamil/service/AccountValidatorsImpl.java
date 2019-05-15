@@ -1,7 +1,8 @@
-package wawer.kamil.accountService;
+package wawer.kamil.service;
 
 import org.apache.commons.lang3.StringUtils;
 import wawer.kamil.model.Account;
+import wawer.kamil.utils.Logging;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,16 +12,31 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean checkAllValidators(Account account) {
-        //TODO co w przypadku gdy któreś pole nie jest nulle ale jest puste? Założenie: odrzucić
-        if(account != null) {
-            boolean format = isIbanHasCorrectFormat(account.getAccountIban());
-            boolean name = isNameNotNullAndIsNotEmpty(account.getName());
-            boolean currency = isCurrencyEqualsPLN(account.getCurrency());
-            boolean balance = isBalanceLowerThanZero(account.getBalance());
-            boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
+        if (account != null) {
 
-            return format && name && currency && balance && date;
-        }else return false;
+            boolean iban = isIbanHasCorrectFormat(account.getAccountIban());
+            if (!iban)
+                Logging.LOGGER.info("IBAN for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+
+            boolean name = isNameNotNullAndIsNotEmpty(account.getName());
+            if (!name)
+                Logging.LOGGER.info("Name for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+
+            boolean currency = isCurrencyEqualsPLN(account.getCurrency());
+            if (!currency)
+                Logging.LOGGER.info("Currency for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+
+            boolean balance = isBalanceLowerThanZero(account.getBalance());
+            if (!balance)
+                Logging.LOGGER.info("Balance for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+
+            boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
+            if (!date)
+                Logging.LOGGER.info("CloseDate for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+
+            return iban && name && currency && balance && date;
+
+        } else return false;
     }
 
     @Override
@@ -34,7 +50,6 @@ public class AccountValidatorsImpl implements AccountValidators {
                 String ibanNumberOfAccount = trimedString.substring(2);
                 boolean isIbanContainsPolishPrefix = countryCodeInIbanNumber.toUpperCase().equals("PL");
                 boolean isIbanContainsOnlyNumbersAfterPrefix = StringUtils.isNumeric(ibanNumberOfAccount);
-
                 return isIbanContainsPolishPrefix && isIbanContainsOnlyNumbersAfterPrefix;
             } else return false;
         } else return false;
@@ -42,7 +57,7 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isNameNotNullAndIsNotEmpty(String name) {
-            return isNotNullAndIsNotEmptyIncludingBlankString(name);
+        return isNotNullAndIsNotEmptyIncludingBlankString(name);
     }
 
     @Override

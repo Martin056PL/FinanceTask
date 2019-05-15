@@ -1,10 +1,12 @@
-package wawer.kamil.accountService;
+package wawer.kamil.service;
 
 import wawer.kamil.model.Account;
+import wawer.kamil.utils.Logging;
 
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+
 
 public class AccountServiceImpl implements AccountService {
 
@@ -17,21 +19,26 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> validateEverySingleAccount(List<Account> sourceAccountList) {
         List<Account> validatedList = new LinkedList<>();
-        for (Account account: sourceAccountList) {
+        Logging.LOGGER.info("Start validation...");
+        Logging.LOGGER.info("----------------------------------------------------------------------");
+        for (Account account : sourceAccountList) {
             TrimNameOfAccount(account);
-            if(validators.checkAllValidators(account))
+            if (validators.checkAllValidators(account))
                 validatedList.add(account);
         }
+        Logging.LOGGER.info("----------------------------------------------------------------------");
+        Logging.LOGGER.info("Finish validation...");
         return validatedList;
     }
 
     @Override
-    public List<Account> sortValidatedAccountList(List<Account> validatedAccountList){
+    public List<Account> sortValidatedAccountList(List<Account> validatedAccountList) {
         List<Account> sortedList = new LinkedList<>(validatedAccountList);
-
+        Logging.LOGGER.info("Start sorting...");
         Comparator<Account> comparator = (o1, o2) -> o1.getName().compareTo(o2.getName());
 
         sortedList.sort(comparator);
+        Logging.LOGGER.info("Finish sorting!");
         return sortedList;
     }
 

@@ -1,4 +1,4 @@
-package wawer.kamil.accountService;
+package wawer.kamil.service;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class AccountServiceTest {
     public void should_Size_Of_Default_Repository_Is_Equal_7(){
         //when
         List<Account> defaultRepository = getDefaultRepository();
-        //than
+        //then
         Assert.assertEquals(7,defaultRepository.size());
     }
 
