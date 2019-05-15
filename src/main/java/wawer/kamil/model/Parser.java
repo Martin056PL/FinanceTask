@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Parser {
 
-    private XmlMapper xmlMapper;
+    private final XmlMapper xmlMapper;
 
     private final File inputFile = new File("input.xml").getAbsoluteFile();
     private final File outputFile = new File("output.xml").getAbsoluteFile();

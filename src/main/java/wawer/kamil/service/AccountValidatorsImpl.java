@@ -13,30 +13,24 @@ public class AccountValidatorsImpl implements AccountValidators {
     @Override
     public boolean checkAllValidators(Account account) {
         if (account != null) {
-            Logging.LOGGER.info("IBAN:");
-            boolean format = isIbanHasCorrectFormat(account.getAccountIban());
-            Logging.LOGGER.info("iban has correct form:  " + format);
 
-            Logging.LOGGER.info("NAME:");
+            boolean iban = isIbanHasCorrectFormat(account.getAccountIban());
+            if (!iban) Logging.LOGGER.info("IBAN for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+
             boolean name = isNameNotNullAndIsNotEmpty(account.getName());
-            Logging.LOGGER.info("name has correct format: " + name);
+            if (!name) Logging.LOGGER.info("Name for Account with iban number: " + account.getAccountIban() + " is incorrect!");
 
-            Logging.LOGGER.info("CURRENCY:");
             boolean currency = isCurrencyEqualsPLN(account.getCurrency());
-            Logging.LOGGER.info("currency has correct format: " + currency);
+            if (!currency) Logging.LOGGER.info("Currency for Account with iban number: " + account.getAccountIban() + " is incorrect!");
 
-            Logging.LOGGER.info("Balance:");
             boolean balance = isBalanceLowerThanZero(account.getBalance());
-            Logging.LOGGER.info("balance has correct format: " + balance);
+            if (!balance) Logging.LOGGER.info("Balance for Account with iban number: " + account.getAccountIban() + " is incorrect!");
 
-            Logging.LOGGER.info("DATE:");
             boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
-            Logging.LOGGER.info("date has correct format: " + date);
+            if (!date) Logging.LOGGER.info("CloseDate for Account with iban number: " + account.getAccountIban() + " is incorrect!");
 
-            boolean isAccountCorrect = format && name && currency && balance && date;
+            return iban && name && currency && balance && date;
 
-            Logging.LOGGER.info("SUMMARY: Is all data in service validated correctly: " + isAccountCorrect);
-            return isAccountCorrect;
         } else return false;
     }
 
