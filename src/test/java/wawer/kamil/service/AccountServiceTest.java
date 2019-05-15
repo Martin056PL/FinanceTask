@@ -2,7 +2,6 @@ package wawer.kamil.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import wawer.kamil.model.Account;
 
 import java.util.LinkedList;
@@ -16,6 +15,8 @@ public class AccountServiceTest {
         this.service = new AccountServiceImpl();
     }
 
+
+    // ACCOUNT VALIDATION
     private List<Account> getDefaultRepository(){
         List<Account> listOfAccounts = new LinkedList<>();
         listOfAccounts.add(new Account("PL61109010140000071219812870", "name4", "PLN", "0", "2029-10-11"));
@@ -26,14 +27,6 @@ public class AccountServiceTest {
         listOfAccounts.add(new Account("PL61109010140000071219812874", "name6", "PLN", "-100.00", "2039-05-15"));
         listOfAccounts.add(new Account("PLL1109010140000071219812876", "name7", "PLN", "1", "2010-01-01"));
         return listOfAccounts;
-    }
-
-    @Test
-    public void should_Size_Of_Default_Repository_Is_Equal_7(){
-        //when
-        List<Account> defaultRepository = getDefaultRepository();
-        //then
-        Assert.assertEquals(7,defaultRepository.size());
     }
 
     @Test
@@ -85,5 +78,45 @@ public class AccountServiceTest {
         List<Account> validatedRepository = service.validateEverySingleAccount(defaultRepository);
         //then
         Assert.assertTrue(validatedRepository.isEmpty());
+    }
+
+    // SORTING LISTS OF ACCOUNTS
+
+    @Test
+    public void should_Pass_If_List_Is_Sorted_In_Correct_Order(){
+        //given
+        List<Account> validatedRepository = service.validateEverySingleAccount(getDefaultRepository());
+        //when
+        List<Account> sortedRepository = service.sortValidatedAccountList(validatedRepository);
+        //then
+        Assert.assertEquals(3,sortedRepository.size());
+        Assert.assertEquals("name1", sortedRepository.get(0).getName());
+        Assert.assertEquals("name2", sortedRepository.get(1).getName());
+        Assert.assertEquals("name4", sortedRepository.get(2).getName());
+
+    }
+
+    @Test
+    public void should_Fail_If_List_Is_Sorted_In_Incorrect_Order(){
+        //given
+        List<Account> validatedRepository = service.validateEverySingleAccount(getDefaultRepository());
+        //when
+        List<Account> sortedRepository = service.sortValidatedAccountList(validatedRepository);
+        //then
+        Assert.assertEquals(3,sortedRepository.size());
+        Assert.assertNotEquals("name2", sortedRepository.get(0).getName());
+        Assert.assertNotEquals("name4", sortedRepository.get(1).getName());
+        Assert.assertNotEquals("name1", sortedRepository.get(2).getName());
+    }
+
+    @Test
+    public void should_Fail_If_List_Is_Sorted_In_Incorrect_Orders(){
+        //given
+        List<Account> defaultRepository = new LinkedList<>();
+        //when
+        List<Account> sortedRepository = service.sortValidatedAccountList(defaultRepository);
+        //then
+        Assert.assertTrue(sortedRepository.isEmpty());
+
     }
 }
