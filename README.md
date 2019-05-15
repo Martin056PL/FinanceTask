@@ -11,7 +11,7 @@ Wymagania dotyczące informacji na temat rachunku:
 - Saldo rachunku
 - Data zamknięcia rachunku
 
-W głównym katalogu programu należy umieścić plik z listą rachunków o dokładnej nazwie "input.xml" W przypadku innej nazwy lub lokalizacji pliku program nie wykona walidacji i sortowania rachunków.
+W katalogu "processor" należy umieścić plik z listą rachunków o nazwie "input.xml". W przypadku innej nazwy lub lokalizacji pliku program nie wykona walidacji i sortowania rachunków.
 Struktura pliku input.xml powinna wyglądać następująco:
 
 < accounts >
@@ -29,7 +29,7 @@ Struktura pliku input.xml powinna wyglądać następująco:
 	< /account >   
 < /accounts >
 
-Program zwraca przetworzone dane w tej samej postaci.
+Program zwraca przetworzone dane w tej samej strukturze.
 
 <b>Założenie dotyczące danych rachunku</b>
 
