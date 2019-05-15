@@ -12,8 +12,8 @@ public class Parser {
 
     private final XmlMapper xmlMapper;
 
-    private final File inputFile = new File("processor/input.xml").getAbsoluteFile();
-    private final File outputFile = new File("processor/output.xml").getAbsoluteFile();
+    private final File inputFile = new File("src/main/resources/input.xml").getAbsoluteFile();
+    private final File outputFile = new File("src/main/resources/output.xml").getAbsoluteFile();
 
     public Parser() {
         this.xmlMapper = new XmlMapper();
