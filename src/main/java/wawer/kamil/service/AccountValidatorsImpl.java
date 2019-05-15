@@ -1,8 +1,8 @@
-package wawer.kamil.accountService;
+package wawer.kamil.service;
 
 import org.apache.commons.lang3.StringUtils;
-import wawer.kamil.model.Account;
 import wawer.kamil.utils.Logging;
+import wawer.kamil.model.Account;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -35,7 +35,7 @@ public class AccountValidatorsImpl implements AccountValidators {
 
             boolean isAccountCorrect = format && name && currency && balance && date;
 
-            Logging.LOGGER.info("SUMMARY: Is all data in account validated correctly: " + isAccountCorrect);
+            Logging.LOGGER.info("SUMMARY: Is all data in service validated correctly: " + isAccountCorrect);
             return isAccountCorrect;
         } else return false;
     }

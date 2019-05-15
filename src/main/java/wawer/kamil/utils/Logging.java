@@ -13,7 +13,7 @@ public class Logging {
         CustomFormatter customFormatter = new CustomFormatter();
         FileHandler fileHandler = new FileHandler("src/main/resources/logs.log");
         fileHandler.setFormatter(customFormatter);
-        fileHandler.setLevel(Level.FINE);
+        fileHandler.setLevel(Level.INFO);
         LOGGER.addHandler(fileHandler);
     }
 }

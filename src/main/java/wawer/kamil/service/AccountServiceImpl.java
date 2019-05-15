@@ -1,4 +1,4 @@
-package wawer.kamil.accountService;
+package wawer.kamil.service;
 
 import wawer.kamil.model.Account;
 import wawer.kamil.utils.Logging;
@@ -21,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
         Logging.LOGGER.info("Start validation...");
         Logging.LOGGER.info("----------------------------------------------------------------------");
         for (Account account : sourceAccountList) {
-            Logging.LOGGER.info("Log account: " + account);
+            Logging.LOGGER.info("Log service: " + account);
             TrimNameOfAccount(account);
             if (validators.checkAllValidators(account))
                 validatedList.add(account);
