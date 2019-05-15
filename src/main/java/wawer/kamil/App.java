@@ -1,12 +1,11 @@
 package wawer.kamil;
 
 
+import wawer.kamil.model.Account;
+import wawer.kamil.model.Parser;
 import wawer.kamil.service.AccountService;
 import wawer.kamil.service.AccountServiceImpl;
-import wawer.kamil.model.Parser;
 import wawer.kamil.utils.Logging;
-import wawer.kamil.model.Account;
-
 
 import java.io.IOException;
 import java.util.List;
