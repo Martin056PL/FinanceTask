@@ -25,7 +25,7 @@ public class AccountValidatorsTest {
         Account testAccount = null;
         //when
         boolean result = validators.checkAllValidators(testAccount);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -35,7 +35,7 @@ public class AccountValidatorsTest {
         Account testAccount = new Account("PL61109010140000071219812870", "name4", "PLN", "123.14", "2029-10-11");
         //when
         boolean result = validators.checkAllValidators(testAccount);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -45,7 +45,7 @@ public class AccountValidatorsTest {
         Account testAccount = new Account("PL61109010140000071219812870", "name4", "PLN", "123.14", "15-15-2020");
         //when
         boolean result = validators.checkAllValidators(testAccount);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -55,7 +55,7 @@ public class AccountValidatorsTest {
         Account testAccount = new Account("", "name4", "", "", "");
         //when
         boolean result = validators.checkAllValidators(testAccount);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -67,7 +67,7 @@ public class AccountValidatorsTest {
         String iban = nullString;
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -77,7 +77,7 @@ public class AccountValidatorsTest {
         String iban = emptyString;
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -87,7 +87,7 @@ public class AccountValidatorsTest {
         String iban = blankString;
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -97,7 +97,7 @@ public class AccountValidatorsTest {
         String iban = "PL61109010140000071219812870";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -107,7 +107,7 @@ public class AccountValidatorsTest {
         String iban = " PL61109010140000071219812870 ";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -117,7 +117,7 @@ public class AccountValidatorsTest {
         String iban = "pl61109010140000071219812870";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -127,7 +127,7 @@ public class AccountValidatorsTest {
         String iban = "PL611090101400000712198128701231231231233123";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -137,7 +137,7 @@ public class AccountValidatorsTest {
         String iban = "PL611090101";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -147,7 +147,7 @@ public class AccountValidatorsTest {
         String iban = "CZ61109010140000071219812870";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -157,7 +157,7 @@ public class AccountValidatorsTest {
         String iban = "CZ611090101RK0000712PD812870";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -167,7 +167,7 @@ public class AccountValidatorsTest {
         String iban = "CZ611090101RK0@007__PD812!70";
         //when
         boolean result = validators.isIbanHasCorrectFormat(iban);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -178,7 +178,7 @@ public class AccountValidatorsTest {
         String name = nullString;
         //when
         boolean result = validators.isNameNotNullAndIsNotEmpty(name);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -188,7 +188,7 @@ public class AccountValidatorsTest {
         String name = emptyString;
         //when
         boolean result = validators.isNameNotNullAndIsNotEmpty(name);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -198,7 +198,7 @@ public class AccountValidatorsTest {
         String name = blankString;
         //when
         boolean result = validators.isNameNotNullAndIsNotEmpty(name);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -208,7 +208,7 @@ public class AccountValidatorsTest {
         String name = "anyName123!";
         //when
         boolean result = validators.isNameNotNullAndIsNotEmpty(name);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -218,7 +218,7 @@ public class AccountValidatorsTest {
         String name = " anyName123! ";
         //when
         boolean result = validators.isNameNotNullAndIsNotEmpty(name);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -229,7 +229,7 @@ public class AccountValidatorsTest {
         String currency = nullString;
         //when
         boolean result = validators.isCurrencyEqualsPLN(currency);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -239,7 +239,7 @@ public class AccountValidatorsTest {
         String currency = emptyString;
         //when
         boolean result = validators.isCurrencyEqualsPLN(currency);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -249,7 +249,7 @@ public class AccountValidatorsTest {
         String currency = blankString;
         //when
         boolean result = validators.isCurrencyEqualsPLN(currency);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -259,7 +259,7 @@ public class AccountValidatorsTest {
         String currentCurrency = "PLN";
         //when
         boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -269,7 +269,7 @@ public class AccountValidatorsTest {
         String currentCurrency = "pln";
         //when
         boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -279,7 +279,7 @@ public class AccountValidatorsTest {
         String currentCurrency = "USD";
         //when
         boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -289,7 +289,7 @@ public class AccountValidatorsTest {
         String currentCurrency = "P L N ";
         //when
         boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -299,7 +299,7 @@ public class AccountValidatorsTest {
         String currentCurrency = " PLN ";
         //when
         boolean result = validators.isCurrencyEqualsPLN(currentCurrency);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -310,7 +310,7 @@ public class AccountValidatorsTest {
         String balance = nullString;
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -320,7 +320,7 @@ public class AccountValidatorsTest {
         String balance = emptyString;
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -330,7 +330,7 @@ public class AccountValidatorsTest {
         String balance = "123.63";
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -340,7 +340,7 @@ public class AccountValidatorsTest {
         String balance = "123,63";
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -350,7 +350,7 @@ public class AccountValidatorsTest {
         String balance = "0";
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -360,7 +360,7 @@ public class AccountValidatorsTest {
         String balance = "-340.45";
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -370,7 +370,7 @@ public class AccountValidatorsTest {
         String balance = "10Zlotys";
         //when
         boolean result = validators.isBalanceLowerThanZero(balance);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -381,7 +381,7 @@ public class AccountValidatorsTest {
         String closingDate = nullString;
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -391,7 +391,7 @@ public class AccountValidatorsTest {
         String closingDate = emptyString;
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -401,7 +401,7 @@ public class AccountValidatorsTest {
         String closingDate = blankString;
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 
@@ -411,7 +411,7 @@ public class AccountValidatorsTest {
         String closingDate = LocalDate.now().plusMonths(2).toString();
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
-        //than
+        //then
         Assert.assertTrue(result);
     }
 
@@ -421,7 +421,7 @@ public class AccountValidatorsTest {
         String closingDate = LocalDate.now().toString();
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
-        //than
+        //then
         Assert.assertTrue(result);
     }
     @Test
@@ -430,7 +430,7 @@ public class AccountValidatorsTest {
         String closingDate = LocalDate.now().minusMonths(2).toString();
         //when
         boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
-        //than
+        //then
         Assert.assertFalse(result);
     }
 

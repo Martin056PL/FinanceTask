@@ -1,11 +1,14 @@
 package wawer.kamil.service;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import wawer.kamil.model.Account;
 import wawer.kamil.utils.Logging;
 
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+
 
 public class AccountServiceImpl implements AccountService {
 
