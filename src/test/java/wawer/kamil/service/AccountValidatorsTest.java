@@ -433,5 +433,54 @@ public class AccountValidatorsTest {
         //then
         Assert.assertFalse(result);
     }
+    @Test
+    public void should_Return_False_When_Account_Closing_Date_Has_Letters() {
+        //given
+        String closingDate = "20r4-12-o4";
+        //when
+        boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
+        //then
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void should_Return_False_When_Account_Closing_Date_Has_Different_Format_1() {
+        //given
+        String closingDate = "18-04-2030";
+        //when
+        boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
+        //then
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void should_Return_False_When_Account_Closing_Date_Has_Different_Format_2() {
+        //given
+        String closingDate = "2030/12/12";
+        //when
+        boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
+        //then
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void should_Return_False_When_Account_Closing_Date_Has_Different_Format_3() {
+        //given
+        String closingDate = "12/12/2030";
+        //when
+        boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
+        //then
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void should_Return_False_When_Account_Closing_Date_Has_Invalid_Date_30_of_February() {
+        //given
+        String closingDate = "2030-02-30";
+        //when
+        boolean result = validators.isCloseDateIsBeforePresentDate(closingDate);
+        //then
+        Assert.assertFalse(result);
+    }
 
 }

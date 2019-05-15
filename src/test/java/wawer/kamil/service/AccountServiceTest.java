@@ -36,8 +36,12 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void asd(){
-
+    public void should_Contain_Added_Object_To_List(){
+        //given
+        List<Account> defaultRepository = getDefaultRepository();
+        //when
+        defaultRepository.add(new Account("PL61109010142057071219812871", "name10", "CZE", "100.00","2040-11-43"));
+        //then
     }
 
 }
