@@ -1,7 +1,7 @@
 <b><strong>Procesor XML kont bankowych</strong></b>
 
 Aplikacja ma za zadanie weryfikację kont bankowych dostarczonych pod postacią pliku xml.
-Program zgodnie z określonymy kryteriami waliduje informacje o rachunkach, następnie zwalidowane konta sortuje leksygograficznie wg. nazwy rachunku i zwraca listę kont spełniających podane wymagania.
+Program zgodnie z określonymy kryteriami waliduje informacje o rachunkach, następnie zwalidowane konta sortuje leksykograficznie wg. nazwy rachunku i zwraca listę kont spełniających podane wymagania.
 Zwalidowane konta umieszczane są w pilu xml.
 
 Wymagania dotyczące informacji na temat rachunku:
