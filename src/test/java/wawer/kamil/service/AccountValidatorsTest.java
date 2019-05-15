@@ -30,9 +30,39 @@ public class AccountValidatorsTest {
     }
 
     @Test
+    public void should_Return_True_And_Accept_Correct_Account(){
+        //given
+        Account testAccount = new Account("PL61109010140000071219812870", "name4", "PLN", "0", "2029-10-11");
+        //when
+        boolean result = validators.checkAllValidators(testAccount);
+        //then
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void should_Return_False_And_Denied_Incorrect_Account_With_Incorrect_iban(){
+        //given
+        Account testAccount = new Account("PLOP109010140000071219812870", "name4", "PLN", "0", "2029-10-11");
+        //when
+        boolean result = validators.checkAllValidators(testAccount);
+        //then
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void should_Return_False_And_Denied_Incorrect_Account_With_Empty_Values(){
+        //given
+        Account testAccount = new Account("", "", "", "", "");
+        //when
+        boolean result = validators.checkAllValidators(testAccount);
+        //then
+        Assert.assertFalse(result);
+    }
+
+    @Test
     public void should_Return_True_For_Account_With_Correct_Account_Data() {
         //given
-        Account testAccount = new Account("PL61109010140000071219812870", "name4", "PLN", "123.14", "2029-10-11");
+        Account testAccount = new Account("PL61109010140000071219812870", "inneKonto", "PLN", "1000000000.14", "2029-10-11");
         //when
         boolean result = validators.checkAllValidators(testAccount);
         //then

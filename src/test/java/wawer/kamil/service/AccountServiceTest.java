@@ -2,6 +2,7 @@ package wawer.kamil.service;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import wawer.kamil.model.Account;
 
 import java.util.LinkedList;
@@ -36,12 +37,53 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void should_Contain_Added_Object_To_List(){
+    public void should_Validate_Accounts_And_Add_Them_Into_Validated_List_And_List_should_Contain_3_Proper_Values(){
         //given
         List<Account> defaultRepository = getDefaultRepository();
+        List<Account> expectedRepository = new LinkedList<>();
+        expectedRepository.add(new Account("PL61109010140000071219812870", "name4", "PLN", "0", "2029-10-11"));
+        expectedRepository.add(new Account("PL61109010140000071219812875", "name1", "PLN", "123.45", "2031-06-10"));
+        expectedRepository.add(new Account("PL61109010140000071219812871", "name2", "PLN", "85.00","2035-10-01"));
+
         //when
-        defaultRepository.add(new Account("PL61109010142057071219812871", "name10", "CZE", "100.00","2040-11-43"));
+        List<Account> validatedRepository = service.validateEverySingleAccount(defaultRepository);
+
         //then
+        Assert.assertTrue(validatedRepository.containsAll(expectedRepository));
     }
 
+    @Test
+    public void should_Validate_Accounts_Incorrect_Accounts_Return_Empty_List(){
+        //given
+        List<Account> defaultRepository = new LinkedList<>();
+        defaultRepository.add(new Account("PLASDWQEDASDAWDQWDSADQWDASDA", "name4", "PLN", "0", "2029-10-11"));
+        defaultRepository.add(new Account("PL61109010140000071219812875", "name1", "USD", "123.45", "2031-06-10"));
+        defaultRepository.add(new Account("PL61109010140000071219812871", "name2", "PLN", "-342.03","2035-10-01"));
+        defaultRepository.add(new Account("PL61109010140000071219812871", "name2", "PLN", "342.03","1992-10-01"));
+        //when
+        List<Account> validatedRepository = service.validateEverySingleAccount(defaultRepository);
+
+        //then
+        Assert.assertTrue(validatedRepository.isEmpty());
+    }
+
+    @Test
+    public void should_Return_Empty_List_When_There_Is_Not_Aby_Account(){
+        //given
+        List<Account> defaultRepository = new LinkedList<>();
+        //when
+        List<Account> validatedRepository = service.validateEverySingleAccount(defaultRepository);
+        //then
+        Assert.assertTrue(validatedRepository.isEmpty());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void should_Return_Empty_List_When_There_Is_Not_Aby_Account_sd(){
+        //given
+        List<Account> defaultRepository = null;
+        //when
+        List<Account> validatedRepository = service.validateEverySingleAccount(defaultRepository);
+        //then
+        Assert.assertTrue(validatedRepository.isEmpty());
+    }
 }
