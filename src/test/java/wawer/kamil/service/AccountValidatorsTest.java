@@ -375,6 +375,16 @@ public class AccountValidatorsTest {
     }
 
     @Test
+    public void should_Return_False_When_Separator_Is_Semicolumn_Instead_Of_Dot() {
+        //given
+        String balance = "123;63";
+        //when
+        boolean result = validators.isBalanceLowerThanZero(balance);
+        //then
+        Assert.assertFalse(result);
+    }
+
+    @Test
     public void should_Return_True_When_Balance_Equals_Zero() {
         //given
         String balance = "0";

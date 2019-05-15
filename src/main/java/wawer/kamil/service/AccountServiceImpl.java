@@ -22,7 +22,7 @@ public class AccountServiceImpl implements AccountService {
         Logging.LOGGER.info("Start validation...");
         Logging.LOGGER.info("----------------------------------------------------------------------");
         for (Account account : sourceAccountList) {
-            TrimNameOfAccount(account);
+            trimNameOfAccount(account);
             if (validators.checkAllValidators(account))
                 validatedList.add(account);
         }
@@ -42,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
         return sortedList;
     }
 
-    private void TrimNameOfAccount(Account account) {
+    private void trimNameOfAccount(Account account) {
         account.setName(account.getName().trim());
     }
 }

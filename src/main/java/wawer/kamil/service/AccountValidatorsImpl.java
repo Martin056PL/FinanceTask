@@ -10,6 +10,8 @@ import java.time.format.DateTimeParseException;
 
 public class AccountValidatorsImpl implements AccountValidators {
 
+    private static final int properLengthOfIbanNumber = 28;
+
     @Override
     public boolean checkAllValidators(Account account) {
         if (account != null) {
@@ -41,11 +43,10 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isIbanHasCorrectFormat(String iban) {
-        //TODO Czy zakładamy że spacje w podanym numerze sa nieakceptowalne? czy też dopuszczalne? Założenie: tylko ciągły numer rachunku bez spacji.
         if (isNotNullAndIsNotEmptyIncludingBlankString(iban)) {
             String trimedString = iban.trim();
             int length = trimedString.length();
-            if (length == 28) {
+            if (length == properLengthOfIbanNumber) {
                 String countryCodeInIbanNumber = trimedString.substring(0, 2);
                 String ibanNumberOfAccount = trimedString.substring(2);
                 boolean isIbanContainsPolishPrefix = countryCodeInIbanNumber.toUpperCase().equals("PL");
@@ -62,7 +63,6 @@ public class AccountValidatorsImpl implements AccountValidators {
 
     @Override
     public boolean isCurrencyEqualsPLN(String currency) {
-        //TODO czy mam uwzględniać wilkość liter? Założenie, że ma być wielkimi literami
         if (isNotNullAndIsNotEmptyIncludingBlankString(currency)) {
             String upperCaseCurrency = currency.toUpperCase().trim();
             return upperCaseCurrency.equals("PLN");
@@ -82,7 +82,7 @@ public class AccountValidatorsImpl implements AccountValidators {
     @Override
     public boolean isCloseDateIsBeforePresentDate(String closingDate) {
         if (isNotNullAndIsNotEmptyIncludingBlankString(closingDate)) {
-            LocalDate presentDate = LocalDate.now(); //TODO Czy uwzględniemy strefę czasową w której się znajdujemy czy inne strefy czasowe? Założenie że tylko te podane.
+            LocalDate presentDate = LocalDate.now();
             if (isDateHasCorrectFormat(closingDate)) {
                 LocalDate localDateClosingDate = LocalDate.parse(closingDate);
                 return presentDate.compareTo(localDateClosingDate) <= 0;
