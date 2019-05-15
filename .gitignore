@@ -2,5 +2,6 @@
 recruitment.task.eLeader.iml
 target
 src/main/resources
-input.xml
-output.xml
+processor/input.xml
+processor/output.xml
+
