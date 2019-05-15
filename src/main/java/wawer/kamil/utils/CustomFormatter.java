@@ -8,7 +8,7 @@ public class CustomFormatter extends Formatter {
 
     @Override
     public String format(LogRecord record) {
-        return "LEVEL: " + record.getLevel() + ", " +  LocalDateTime.now() + " - " + record.getMessage() + "\n";
+        return "LEVEL: " + record.getLevel() + ", " +  LocalDateTime.now() + " - " + record.getSourceClassName() + " - " + record.getMessage() + "\n";
     }
 
 }
