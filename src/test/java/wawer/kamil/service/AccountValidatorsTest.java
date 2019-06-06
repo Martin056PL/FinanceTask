@@ -4,13 +4,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import wawer.kamil.model.Account;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class AccountValidatorsTest {
 
     private AccountValidators validators;
 
-    public AccountValidatorsTest() {
+    public AccountValidatorsTest() throws IOException {
         this.validators = new AccountValidatorsImpl();
     }
 

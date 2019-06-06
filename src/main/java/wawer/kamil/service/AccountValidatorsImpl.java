@@ -4,13 +4,19 @@ import org.apache.commons.lang3.StringUtils;
 import wawer.kamil.model.Account;
 import wawer.kamil.utils.Logging;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.logging.Logger;
 
 public class AccountValidatorsImpl implements AccountValidators {
 
     private static final int properLengthOfIbanNumber = 28;
+    private Logger logging = Logging.getInstance();
+
+    public AccountValidatorsImpl() throws IOException {
+    }
 
     @Override
     public boolean checkAllValidators(Account account) {
@@ -18,23 +24,23 @@ public class AccountValidatorsImpl implements AccountValidators {
 
             boolean iban = isIbanHasCorrectFormat(account.getAccountIban());
             if (!iban) {
-                Logging.LOGGER.info("IBAN for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+                logging.info("IBAN for Account with iban number: " + account.getAccountIban() + " is incorrect!");
             }
             boolean name = isNameNotNullAndIsNotEmpty(account.getName());
             if (!name) {
-                Logging.LOGGER.info("Name for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+                logging.info("Name for Account with iban number: " + account.getAccountIban() + " is incorrect!");
             }
             boolean currency = isCurrencyEqualsPLN(account.getCurrency());
             if (!currency) {
-                Logging.LOGGER.info("Currency for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+                logging.info("Currency for Account with iban number: " + account.getAccountIban() + " is incorrect!");
             }
             boolean balance = isBalanceLowerThanZero(account.getBalance());
             if (!balance) {
-                Logging.LOGGER.info("Balance for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+                logging.info("Balance for Account with iban number: " + account.getAccountIban() + " is incorrect!");
             }
             boolean date = isCloseDateIsBeforePresentDate(account.getClosingDate());
             if (!date) {
-                Logging.LOGGER.info("CloseDate for Account with iban number: " + account.getAccountIban() + " is incorrect!");
+                logging.info("CloseDate for Account with iban number: " + account.getAccountIban() + " is incorrect!");
             }
             return iban && name && currency && balance && date;
 

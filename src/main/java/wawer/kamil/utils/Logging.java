@@ -7,9 +7,35 @@ import java.util.logging.Logger;
 
 public class Logging {
 
-    public static final Logger LOGGER = Logger.getLogger(Logging.class.getName());
+    private static Logger LOGGER;
 
-    public static void createLogger() throws IOException {
+    private Logging(){
+        //constructor for singleton
+    }
+
+    public static Logger getInstance() throws IOException {
+        if (LOGGER == null) {
+            LOGGER = Logger.getLogger(Logging.class.getName());
+            createLogger();
+        }
+        return LOGGER;
+    }
+
+    public static Logger getInstanceSafe() throws IOException {
+        if (LOGGER == null) {
+            synchronized(Logging.class) {
+                if (LOGGER == null) {
+                    LOGGER = Logger.getLogger(Logging.class.getName());
+                    createLogger();
+                }
+            }
+        }
+        return LOGGER;
+    }
+
+    //public static final Logger LOGGER = Logger.getLogger(Logging.class.getName());
+
+    private static void createLogger() throws IOException {
         CustomFormatter customFormatter = new CustomFormatter();
         FileHandler fileHandler = new FileHandler("src/main/resources/logs.log");
         fileHandler.setFormatter(customFormatter);

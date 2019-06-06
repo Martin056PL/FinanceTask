@@ -11,18 +11,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class App {
+
+    private Logger logging = getInstance();
+
+    public App() throws IOException {
+    }
 
     public static void main(String[] args) throws IOException {
         App.startProgram();
     }
 
     private static void startProgram() throws IOException {
-        Logging.createLogger();
 
         Parser parser = new Parser();
-        Logging.LOGGER.info("Reading XML file...");
+        getInstance().info("Reading XML file...");
 
         List<Account> accounts = new LinkedList<>();
         boolean isFileHasFound = true;
@@ -31,17 +36,21 @@ public class App {
             accounts = parser.readFromXML().getAccountList();
         }catch (FileNotFoundException e){
             isFileHasFound = false;
-            Logging.LOGGER.info("XML file not found! Exit program!");
+            getInstance().info("XML file not found! Exit program!");
         }
 
         if(isFileHasFound) {
             AccountService service = new AccountServiceImpl();
-            Logging.LOGGER.info("Starting validating accounts...");
+            getInstance().info("Starting validating accounts...");
             List<Account> validatedAccounts = service.validateEverySingleAccount(accounts);
             List<Account> sortedAccounts = service.sortValidatedAccountList(validatedAccounts);
-            Logging.LOGGER.info("Writing to XML file...");
+            getInstance().info("Writing to XML file...");
             parser.writeToXML(sortedAccounts);
-            Logging.LOGGER.info("Finish program!");
+            getInstance().info("Finish program!");
         }
+    }
+
+    private static Logger getInstance() throws IOException {
+        return Logging.getInstance();
     }
 }

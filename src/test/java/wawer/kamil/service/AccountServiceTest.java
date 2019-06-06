@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import wawer.kamil.model.Account;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class AccountServiceTest {
 
     private AccountService service;
 
-    public AccountServiceTest(){
+    public AccountServiceTest() throws IOException {
         this.service = new AccountServiceImpl();
     }
 
