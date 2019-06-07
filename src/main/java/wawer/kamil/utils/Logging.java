@@ -33,8 +33,6 @@ public class Logging {
         return LOGGER;
     }
 
-    //public static final Logger LOGGER = Logger.getLogger(Logging.class.getName());
-
     private static void createLogger() throws IOException {
         CustomFormatter customFormatter = new CustomFormatter();
         FileHandler fileHandler = new FileHandler("src/main/resources/logs.log");

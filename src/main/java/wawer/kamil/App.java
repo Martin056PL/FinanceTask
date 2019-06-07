@@ -15,8 +15,6 @@ import java.util.logging.Logger;
 
 public class App {
 
-    private Logger logging = getInstance();
-
     public App() throws IOException {
     }
 
