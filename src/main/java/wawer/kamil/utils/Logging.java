@@ -1,10 +1,12 @@
 package wawer.kamil.utils;
 
+import javax.annotation.concurrent.ThreadSafe;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@ThreadSafe
 public class Logging {
 
     private static Logger LOGGER;
@@ -17,18 +19,6 @@ public class Logging {
         if (LOGGER == null) {
             LOGGER = Logger.getLogger(Logging.class.getName());
             createLogger();
-        }
-        return LOGGER;
-    }
-
-    public static Logger getInstanceSafe() throws IOException {
-        if (LOGGER == null) {
-            synchronized(Logging.class) {
-                if (LOGGER == null) {
-                    LOGGER = Logger.getLogger(Logging.class.getName());
-                    createLogger();
-                }
-            }
         }
         return LOGGER;
     }

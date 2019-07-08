@@ -81,7 +81,7 @@ public class AccountValidatorsImpl implements AccountValidators {
             BigDecimal balanceInBigDecimal = convertStringToBigDecimal(balance);
             BigDecimal emptyAccount = BigDecimal.ZERO;
             int result = balanceInBigDecimal.compareTo(emptyAccount);
-            return result != -1;
+            return result >= 0;
         } else return false;
     }
 
